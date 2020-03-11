@@ -1,0 +1,181 @@
+#Warning {
+  background-color: orange;
+  color: aliceblue;
+}
+
+#Error {
+  background-color: red;
+  color: aliceblue;
+}
+
+#Info {
+  background-color: lightseagreen;
+  color: black;
+}
+
+h2{
+  padding-top: 5px;
+}
+.nav{
+  padding-top: 5px;
+  margin: 5px;
+}
+
+.list-group{
+  max-height: 300px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.infoModalPress{
+  cursor: pointer;
+}
+
+.backButton {
+  cursor: pointer; 
+}
+
+.userModalPress{
+  cursor: pointer;
+}
+
+.graphModalPress{
+  cursor: pointer;
+}
+
+#menu-toggle{
+  cursor: pointer;
+}
+
+#datatable {
+  margin-left: 5px; 
+}
+
+#modal-login {
+  text-align: center;
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0,0,0,0.95); /* Black w/ opacity */
+
+}
+
+#log-col {
+  padding:50px;
+}
+
+#logo-inovo {
+  margin-bottom: 50px;
+  font-size: 100px;
+}
+
+.modal-body {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+table {
+  width:  100%;
+  border-collapse: collapse;
+}
+/* td {
+  border: 1px solid black;
+} */
+.scrollingTable tbody{
+  display:block;
+  height: 30em;
+  overflow-y: auto;
+  /* width:100%; */
+}
+.scrollingTable thead{
+  display:block;
+}
+
+.scrollingTableMaint {
+  height: 30em;
+  overflow-y: auto;
+}
+
+.scrollingTableModal tbody{
+  display:block;
+  height: 15em;
+  overflow-y: auto;
+  /* width:100%; */
+}
+.scrollingTableModal thead{
+  display:block;
+}
+.scrollingTablesched {
+  height: 10em;
+  overflow-y: auto;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 15px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #f05d22;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #f05d22;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

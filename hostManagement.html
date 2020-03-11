@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Inovo Host Management Dashboard</title>
+
+
+
+    <link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico" />
+    <!-- <script src="assets/js/alarmTable.js"></script> -->
+
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+    <script src="assets/js/hostManagement.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- <script src="assets/js/Sidebar-Menu.js"></script> -->
+
+</head>
+
+<body onload="startPage()">
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!--NAVBAR  -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="row" id="header_row" text-align="left">
+            <div class="col-sm-1" id="col-Menu">
+                <a class="btn btn-link" role="button" id="menu-toggle">
+                    <i onclick="openMenu()" id="menu-button" class="fa fa-bars"
+                        style="color: rgb(60,70,74);font-size: 40px;"></i>
+                </a>
+            </div>
+
+            <div class="col-md-2" id="col-Logo" style="margin-right: 20px; margin-left: 10px;">
+                <a class="navbar-brand">
+                    <img src="assets/images/logo_inovo.png">
+                </a>
+            </div>
+            <div id="col-Header" class="col-md-8" style="margin-top: 10px;">
+                <h4>Host Management Dashboard</h4>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- SIDEBAR MENU -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+    <div id="wrapper" style="display: none;">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <span class="actions" style="font-size: 16px;">
+                        <a class="login" id="loginUserId"></a>
+                    </span>
+                </li>
+                <!-- <li>
+                        <a href="#index-overiew">Overview Dashboard </a>
+                    </li>
+                    <li>
+                        <a href="#">Settings</a>
+                    </li> -->
+                <li id="homeSiteLink">
+                    <!-- <a href="index.html#"><i class="fas fa-hammer"></i>Central Monitoring Dashboard</a> -->
+                </li>
+
+                <li id="serverMonitorThresholdLink">
+
+                </li>
+                <li id="hostMaintenanceLink">
+
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#modalLogout" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- MAIN BODY SECTION -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <div class="row" style="text-align: center;">
+        <div class="container">
+            <div class="container">
+                <h6> HOST MANAGEMENT SETUP </h6>
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- <h6>Enable Host</h6>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="searchGroupSelect01">Enable Host</label>
+                            </div>
+                            <select onchange="getSiteList()" class="custom-select" id="selectHostEnable">
+                                <option  selected="" value="undefined">Do you want to Enable/Disable
+                                    Host?</option>
+                                <option id="Disabled" value="0">Enable</option>
+                                <option id="Enabled" value="1">Disable</option>
+                            </select>
+                        </div> -->
+
+                        <H6>List of Disabled Hosts</H6>
+
+                        <div class="scrollingTable">
+                            <table class="table" id="disabledHostsLists" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th width="116px;">Site Name</th>
+                                        <th width="172px;">Host Name</th>
+                                        <th width="130px">Host IP</th>
+                                        <th width="95px">No. of Agents Disabled</th>
+                                        <th width="95px">Host Disabled</th>
+                                        <th width="85px">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="enabledSites">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <!-- <H6>List of Partially Disabled Hosts</H6>
+
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="searchGroupSelect01">Site Selection</label>
+                                </div>
+                                <select onchange="getEnableHostList()" class="custom-select" id="selectSite">
+
+                                </select>
+                            </div>
+
+                            <div class="card scrollingTableII">
+                                <table class="table" id="disabledHostsLists" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th>Site Name</th>
+                                            <th>Host Name</th>
+                                            <th>Host IP</th>
+                                            <th>Agent Disabled</th>
+                                            <th>Is Host Disabled</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="enabledSites">
+                                       
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row" id="rowDisableHost">
+                            <h6>Site</h6>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="searchGroupSelect01">Site
+                                        Selection</label>
+                                </div>
+                                <select onchange="getEnableHostList()" class="custom-select" id="selectSite">
+
+                                </select>
+                            </div>
+                            <h6>Disable Host</h6>
+                            <table class="table" id="sitesListsTable" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th>Host Name</th>
+                                        <th>Host IP</th>
+                                        <th>Enabled</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="enabledHosts">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <h6>Host</h6>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="searchGroupSelect01">Host
+                                    Selection</label>
+                            </div>
+                            <select  class="custom-select" id="selectHost" disabled>
+                                <option selected="" value="undefined">Choose Host...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6" hidden>
+                        <h6>Set Host</h6>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="searchGroupSelect01">Set Host</label>
+                            </div>
+                            <select class="custom-select" id="selectEnabler" disabled>
+                                <option selected="" value="undefined">Choose to Enable
+                                    Host...</option>
+                                
+                            </select>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <!-- <button id="btnCompleteHostSchedule" onclick="retrieveHostIDsForUpdate()" type="button"
+                    class="btn btn-dark">Update Host</button> -->
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- modal for LOGIN -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div id="modal-login" class="modal fade show" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="log-col" class="col-md-6 col-xl-12">
+                            <form id="login-form" method="POST" style="width: 400px;">
+                                <h2 class="sr-only">Login Form</h2>
+                                <div class="illustration">
+                                    <img id="logo-inovo" src="assets/images/logo_inovo.png" />
+                                </div>
+                                <div class="form-group">
+                                    <input id="username-login" class="form-control" type="text" placeholder="Username"
+                                        name="Username">
+                                </div>
+                                <div class="form-group">
+                                    <input id="password-login" class="form-control" type="password" name="Password"
+                                        placeholder="Password">
+                                </div>
+                                <div>
+                                    <p id="errorMessage" style="color: red;"></p>
+                                </div>
+                                <div class="form-group">
+                                    <button id="logInBtn" onclick="checkAuth()" class="btn btn-dark btn-block"
+                                        type="button">Log
+                                        In</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------------------------------------------------->
+    <!-- ---------------------------------------------------------------------------------------------->
+    <!-- Modal to LOGOUT-->
+    <!-- ---------------------------------------------------------------------------------------------->
+    <!-- ---------------------------------------------------------------------------------------------->
+    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">LOGOUT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Would you like to logout?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        style="width: 230px;">Close</button>
+                    <button type="button" onclick="logOutofDashboard(); startPage();" data-dismiss="modal"
+                        class="btn btn-primary" style="width: 230px;">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!--TOAST MESSAGE -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+        style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+        <div class="toast-header">
+            <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png"
+                alt="Toast icon alternate text" style="width: 20px;">
+            <strong id="toastTitle" class="mr-auto"></strong>
+            <!-- <small>Note</small> -->
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body" id="toastMessage">
+
+        </div>
+    </div>
+
+
+    <footer style="margin-left: 25px;">
+        <p> Copyright INOVO, All Rights Reserved &copy; 2019 - INOVO Host Management Dashboard </p>
+    </footer>
+
+
+</body>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- Modal for SITE Details -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="modal fade host-site-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col">
+                    <h4 class="modal-title">Site Name: <span id="sitenameData"></span>
+                    </h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true"></span>X</button>
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- table for hosts in site -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="modal-body">
+                <div class="scrollingTableModal">
+                    <table class="table" id="disabledHostsLists" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th width="143px;">Site Name</th>
+                                <th width="179px;">Host Name</th>
+                                <th width="156px">Site IP</th>
+                                <th width="143px">Host IP</th>
+                                <th width="127px">Host Disabled</th>
+                            </tr>
+                        </thead>
+                        <tbody id="siteHosts">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" style="width: 230px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- Modal for HOST Details -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="modal fade host-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col">
+                    <h4 class="modal-title">Host Name: <span id="hostnameData"></span>
+                    </h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true"></span>X</button>
+            </div>
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- table for hosts in site -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+            <div class="modal-body">
+                <div class="scrollingTableModal">
+                    <table class="table" id="disabledHostsLists" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th width="95px;">Site Name</th>
+                                <th width="130px;">Host Name</th>
+                                <th width="192px;">Agent Type</th>
+                                <th width="139px">Site IP</th>
+                                <th width="127px">Host IP</th>
+                                <th width="85px">Agent Disabled</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hostAgents">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" style="width: 230px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

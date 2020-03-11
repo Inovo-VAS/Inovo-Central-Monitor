@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Inovo Central Monitor Dashboard</title>
+
+    <script src="assets/js/app.js"></script>
+    <!-- <script src="assets/js/alarmTable.js"></script> -->
+
+
+
+    <link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico" />
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+
+<body onload="startPage()">
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!--NAVBAR  -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="row" id="header_row" text-align="left">
+            <div class="col-sm-1" id="col-Menu">
+                <a class="btn btn-link" role="button" id="menu-toggle">
+                    <i id="menu-button" class="fa fa-bars" style="color: rgb(60,70,74);font-size: 40px;"></i>
+                </a>
+            </div>
+
+            <div class="col-md-2" id="col-Logo">
+                <a class="navbar-brand">
+                    <img src="assets/images/logo_inovo.png">
+                </a>
+            </div>
+            <div id="col-Header" class="col-md-7" style="margin-top: 5px;">
+                <h3>Central Monitoring Dashboard</h3>
+            </div>
+            <div id="col-button" class="col-md-2" style="margin-top: 5px;"> <button id="buttonCust" class="btn btn-dark"
+                    type="button" data-toggle="collapse" data-target=".multi-collapse-filter" aria-expanded="false"
+                    aria-controls="multiCollapseExample1" onclick="openCustomSearchFilter();">Open
+                    Filter</button>
+            </div>
+
+            <!-- <div class="col-md-1">
+                <h2 id="timeStamp"></h2>
+            </div>  -->
+        </div>
+    </nav>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- SIDEBAR MENU -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+    <div id="wrapper" style="display: none;">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <span class="actions" style="font-size: 16px;">
+                        <a class="login" id="loginUserId"></a>
+                    </span>
+                </li>
+                <!-- <li>
+                    <a href="#index-overiew">Overview Dashboard </a>
+                </li>
+                <li>
+                    <a href="#">Settings</a>
+                </li> -->
+                <li id="hostMaintenanceLink">
+
+                </li>
+                <li id="hostManageLink">
+
+                </li>
+                <li id="serverMonitorThresholdLink">
+
+                </li>
+                <li id="userManagementLink">
+
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#modalLogout" href="#"><i class="fa fa-sign-out"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- MAIN BODY SECTION -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row" style="text-align: center;">
+
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- FILTER -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                <div class="col-md-12">
+                    <div class="collapse multi-collapse-filter" id="multiCollapseExample1">
+                        <div class="card card-body" style="background-color: rgb(189, 189, 189);">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <!-- ---------------------------------------------------------SERVER FILTER -->
+                                        <div class="col-md-3" id="searchGroupServerSelect">
+
+                                        </div>
+                                        <!-- ---------------------------------------------------------ALARM ID FILTER -->
+                                        <div class="col-md-3" id="searchGroupAlarmIDSelect">
+
+                                        </div>
+                                        <!-- ---------------------------------------------------------SOURCE FILTER -->
+                                        <div class="col-md-3" id="searchGroupSourceSelect">
+
+                                        </div>
+
+                                        <!-- ---------------------------------------------------------SEVERITY FILTER -->
+                                        <div class="col-md-3" id="searchGroupSeveritySelect">
+
+                                        </div>
+                                        <!-- ---------------------------------------------------------CLIENT FILTER -->
+
+                                        <div class="col-md-4" id="searchGroupClientSelect">
+
+                                        </div>
+
+                                        <!-- ---------------------------------------------------------VODACOM CLIENT FILTER -->
+                                        <div class="col-md-4" id="searchGroupVodacomSelect">
+
+                                        </div>
+                                        <!-- ----------------------------------------------------------STATUS FILTER--------------------------  -->
+                                        <div class="col-md-4" id="searchGroupStatusSelect">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <button class="btn btn-dark" type="button" style="width: 86px;"
+                                                onclick="openCustomSearchFilter();">
+                                                <i class="fa fa-refresh"></i>
+                                                <i class="fa fa-filter"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <button class="btn btn-dark" type="button" style="width: 86px;"
+                                                onclick="openCustomSearchFilter(); getActiveAlarms();">
+                                                <i class="fa fa-refresh"></i>
+                                                <i class="fa fa-table"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-dark" type="button" onclick=" runCustomSearch();"
+                                                style="margin-top: 15px;width: 120px;">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- TABLE  -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+                <div class="table-responsive" id="datatable" style="margin-right: 15px; margin-left: 5px;">
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/Sidebar-Menu.js"></script>
+        <script>
+        </script>
+
+
+        <footer style="margin-left: 25px;">
+            <p> Copyright INOVO, All Rights Reserved &copy; 2019 - INOVO Central Monitoring Dashboard </p>
+        </footer>
+    </div>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- MODALS -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div class="container">
+
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- USER PROFILE MANAGE MODAL -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div id="userManageModal" class="modal fade user-manage-modal-lg" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row" style="width: 350px;">
+                            <div class="col-md-3">
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#modaluser"
+                                    href="#UserManagement" onclick="checkUsers()" class="backButton"
+                                    title="click to go back"><i class="fas fa-arrow-left fa-stack-2x"
+                                        style="font-size: 35px;color: rgb(4,4,4);"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-5">
+                                <h4 id="manageUserName"></h4>
+                            </div>
+                            <div class="col-md-3">
+                                <a
+                                    title="Chooose a Server to search then select the parameters of your search. Once done click search to complete search"><i
+                                        class="fas fa-info-circle fa-stack-2x"
+                                        style="font-size: 30px;color: rgb(4,4,4);"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table" style="text-align: center;" id="manageUserTable">
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- Collapse User Update  -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <div class="collapse multi-collapse-update-profile" id="collapseUpdateUserProfile">
+                                <div class="card card-body" style="background-color: rgb(255, 255, 255);">
+
+
+
+                                    <div class="table-responsive" id="updateProfile" style="margin-right: 15px">
+                                        <div class="row">
+                                            <!-- Add content -->
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Name</span>
+                                                    </div>
+                                                    <input id="updateUserName" type="text" aria-label="First name"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Surname</span>
+                                                    </div>
+                                                    <input id="updateUserSurname" type="text" aria-label="Last name"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Enter Password</span>
+                                                    </div>
+                                                    <input id="updateUserPass" type="text" aria-label="Enter Password"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6" style="padding-top: 10px;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Confirm Password</span>
+                                                    </div>
+                                                    <input id="updateConfirmUserPass" type="text"
+                                                        aria-label="Confirm Password" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div id="updateActiveSection" class="col-md-6" style="padding-top: 10px;">
+
+                                            </div>
+
+                                            <div id="updateAccessSection" class="col-md-6" style="padding-top: 10px;">
+
+                                            </div>
+                                            <div id="updateBtnSection" class="col-md-8" style="padding-top: 10px;">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- MODAL FOOTER -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+                    <div class="modal-footer">
+                        <button id="profileEditBTN" onclick="checkUpdateRequirements();" class="btn btn-dark"
+                            type="button" data-toggle="collapse" data-target=".multi-collapse-update-profile"
+                            aria-expanded="false" aria-controls="collapseUpdateUserProfile">Edit Profile</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- Modal for Alarm Details -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="col">
+                            <h4 class="modal-title">Alarm ID: <span id="idData"></span></p>
+                            </h4>
+                            <h6 class="modal-title">
+                                <strong>
+                                    <p id="messageData"></p>
+                                </strong>
+                            </h6>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"></span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-folder-open-o text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">Category</span><br>
+                                            <span id="categoryData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-thermometer-half text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">Severity</span><br>
+                                            <span id="severity" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-server text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">source</span><br>
+                                            <span id="sourceData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-clipboard-list text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">description</span><br>
+                                            <span id="descriptionData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="container">
+                                <!-- Client details -->
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-briefcase text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">client</span><br>
+                                            <span id="clientData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span></p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-building text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">sitename</span><br>
+                                            <span id="sitenameData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span></p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-laptop text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">hostname</span><br>
+                                            <span id="hostnameData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-hashtag text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">Alarm Host ID</span><br>
+                                            <span id="hostidData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span>
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="container">
+                                <!-- Date details -->
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fas fa-info-circle text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">Status</span><br>
+                                            <span id="currentStatus" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-calendar-o text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">First Occurrence</span><br>
+                                            <span id="createdData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-upload text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">Updated date</span><br>
+                                            <span id="updatedData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p class="text-center"><span class="fa-stack"><i
+                                                    class="fa fa-users text-primary fa-stack-2x"
+                                                    style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                                <br>
+                                            </span><br>
+
+                                            <span class="text-uppercase text-muted h6">updateby</span><br>
+                                            <span id="updatebyData" class="p-0"
+                                                style="color: rgb(42,77,112);"><br><br><br><br>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- Collapse threshold adjust  -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <div class="collapse multi-collapse-threshold" id="multiCollapseAdjustThreshold">
+                                <div class="card card-body" style="background-color: rgb(255, 255, 255);">
+                                    <div class="row">
+                                        <!-- Add content -->
+                                        <div class="table-responsive" id="diskTable" style="margin-right: 15px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- MODAL FOOTER -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+                    <div class="modal-footer">
+                        <div id="getAckBtn"></div>
+                        <div id="getDiskInfoBtn"></div>
+                        <button class="btn btn-dark" type="button" data-dismiss="modal">Close Alarm Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- modal for login -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div id="modal-login" class="modal fade show" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div>
+                            <div>
+                                <div class="row">
+                                    <div id="log-col" class="col-md-6 col-xl-12">
+                                        <form id="login-form" method="POST" style="width: 400px;">
+                                            <h2 class="sr-only">Login Form</h2>
+                                            <div class="illustration">
+                                                <img id="logo-inovo" src="assets/images/logo_inovo.png" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="username-login" class="form-control" type="text"
+                                                    placeholder="Username" name="Username">
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="password-login" class="form-control" type="password"
+                                                    name="Password" placeholder="Password">
+                                            </div>
+                                            <div>
+                                                <p id="errorMessage" style="color: red;"></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <button id="logInBtn" onclick="checkAuth()"
+                                                    class="btn btn-dark btn-block" type="button">Log In</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- modal for main user management -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div id="modaluser" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="modal-title">USER MANAGEMENT</h4>
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th style="color: rgb(0,0,0);">User Name</th>
+                                            <th style="color: rgb(0,0,0);">User Surname</th>
+                                            <th style="color: rgb(0,0,0);">User Login</th>
+                                            <th style="color: rgb(0,0,0);">Access Level</th>
+                                            <th style="color: rgb(0,0,0);">Account Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id=userManageTable>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Multi Collapse -->
+                    <!-- <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <div class="collapse multi-collapse-threshold" id="multiCollapseAdjustThreshold">
+                                <div class="card card-body" style="background-color: rgb(255, 255, 255);">
+                                    <div class="row">
+                                         Add content
+                                        <div class="table-responsive" id="diskTable2" style="margin-right: 15px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="modal-footer">
+                        <div id="userButtons" class="col-md-2" style="right: 60px;">
+                            <!-- CREATE BUTTON  -->
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- Modal to LOGOUT-->
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- ---------------------------------------------------------------------------------------------->
+        <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">LOGOUT</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            Would you like to logout?
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            style="width: 230px;">Close</button>
+                        <button type="button" onclick="logOutofDashboard(); startPage();" data-dismiss="modal"
+                            class="btn btn-primary" style="width: 230px;">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- CREATE USER MODAL. -->
+        <!-- ---------------------------------------------------------------------------------------------->
+        <!-- ---------------------------------------------------------------------------------------------->
+
+
+        <div id="modalCreateUser" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#modaluser"
+                                    href="#UserManagement" onclick="checkUsers()" class="backButton"
+                                    title="click to go back"><i class="fas fa-arrow-left fa-stack-2x"
+                                        style="font-size: 35px;color: rgb(4,4,4);"></i>
+                                </a>
+                            </div>
+
+                            <div class="col-md-9" style="width: 250px;">
+                                <h4 class="modal-title">CREATE USER</h4>
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <!-- Name and Surname  - TEXT-->
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <h6>PERSONAL DETAILS</h6>
+                            </div>
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <div id="newUsername" class="col-md-6">
+                                    <div id="inputUsername" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">User Name</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="createNewUsername"
+                                            placeholder="Enter new User Name...">
+                                    </div>
+                                </div>
+                                <div id="newUsersurname" class="col-md-6">
+                                    <div id="inputUsersurname" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">User Surname</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="createNewUsersurname"
+                                            placeholder="Enter new User Surname...">
+                                    </div>
+                                </div>
+                                <div id="newUserLogin" class="col-md-6" style=" padding-top: 5px;">
+                                    <div id="inputUsersurname" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">User Login</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="createNewUserlogin"
+                                            placeholder="Enter new User Login...">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--  users access level -->
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <h6>ACCESS DETAILS</h6>
+                            </div>
+
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <div id="newUserActive" class="col-md-6">
+
+                                </div>
+                                <div id="newUserAccessLevel" class="col-md-6">
+                                    <!-- <div class="input-group mb-3">
+                                        <div class="input-group-prepend"><label class="input-group-text"
+                                                for="searchGroupSelect01">Access Level</label></div><select
+                                            class="custom-select" id="selectUserAccess">
+                                            <option selected="">Choose User Access Level...</option>
+                                            <option value="1">Administrator</option>
+                                            <option value="2">User</option>
+                                            <option value="3">Guest</option>
+                                            <option value="4">Wallboard</option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                            </div>
+
+
+                            <!--  userpassword and confirm password    -->
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <h6>SECURITY DETAILS</h6>
+                            </div>
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <div id="newUserPass" class="col-md-6">
+                                    <div id="inputUsertype" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">User Password</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="createNewUserpassword"
+                                            placeholder="Enter new User Password">
+                                    </div>
+                                </div>
+                                <div id="newUserConfirmPass" class="col-md-6">
+                                    <div id="inputUsertype" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Confirm Password</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="confirmNewUserpassword"
+                                            placeholder="Confirm User Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  users sites  and active dropdowns  -->
+                            <!-- <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <h6>SITE DETAILS</h6>
+                            </div>
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+                                <div class="col-md-6">
+                                    <h6> DIRECT SITE LIST </h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6> VODACOM SITE LIST </h6>
+                                </div>
+                            </div>
+                            <div class="row" style=" padding-bottom: 5px;  padding-top: 5px;">
+
+                                <div id="newUserDirectSitesList" class="col-md-6">
+
+                                </div>
+                                <div id="newUserVodacomSitesList" class="col-md-6">
+
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-dark" type="button" onclick="createUser()">Create User</button>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+    <div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+        style="position: absolute; top: 0; right: 0;  background-color: darkgrey;">
+        <div class="toast-header">
+            <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png"
+                alt="Toast icon alternate text" style="width: 20px;">
+            <strong id="toastTitle" class="mr-auto"></strong>
+            <!-- <small>Note</small> -->
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body" id="toastMessage">
+
+        </div>
+    </div>
+
+
+</body>
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!--TOAST MESSAGE -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+</html>

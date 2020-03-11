@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Inovo Maintenance Schedule Dashboard</title>
+
+
+    <!-- <script src="assets/js/alarmTable.js"></script> -->
+
+
+
+    <link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+    <script type="text/javascript" src="assets/js/maintenance.js"></script>
+    <script type="text/javascript" src="assets/js/moment.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+    <!-- <script src="assets/js/Sidebar-Menu.js"></script> -->
+
+</head>
+
+<body onload="startPage()">
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- NAVBAR  -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- button to open menu -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="row" id="header_row" text-align="left">
+            <div class="col-sm-1" id="col-Menu">
+                <a class="btn btn-link" role="button" id="menu-toggle">
+                    <i onclick="openMenu()" id="menu-button" class="fa fa-bars"
+                        style="color: rgb(60,70,74);font-size: 40px;"></i>
+                </a>
+            </div>
+
+            <div class="col-md-2" id="col-Logo" style="margin-right: 10px;">
+                <a class="navbar-brand">
+                    <img src="assets/images/logo_inovo.png">
+                </a>
+            </div>
+            <div id="col-Header" class="col-md-8" style="margin-top: 10px;">
+                <h4>Maintenance Scheduling Dashboard</h4>
+            </div>
+
+
+            <!-- <div class="col-md-1">
+                    <h2 id="timeStamp"></h2>
+                </div>  -->
+        </div>
+    </nav>
+
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- SIDEBAR MENU -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+    <div id="wrapper" style="display: none;">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <span class="actions" style="font-size: 16px;">
+                        <a class="login" id="loginUserId"></a>
+                    </span>
+                </li>
+                <!-- <li>
+                        <a href="#index-overiew">Overview Dashboard </a>
+                    </li>
+                    <li>
+                        <a href="#">Settings</a>
+                    </li> -->
+                <li id="homeSiteLink">
+                    <!-- <a href="index.html#"><i class="fas fa-hammer"></i>Central Monitoring Dashboard</a> -->
+                </li>
+                <li id="hostManageLink">
+
+                </li>
+                <li id="serverMonitorThresholdLink">
+
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#modalLogout" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- MAIN BODY SECTION -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-7" style="margin-bottom: 25px; padding-top: 15px;">
+                            <h6>HOST UNDER MAINTENANCE</h6>
+
+                            <div class="card scrollingTableMaint">
+
+                                <table class="table" id="completeMaintenanceTable" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th style="color: rgb(0,0,0);">Client Name</th>
+                                            <th style="color: rgb(0,0,0);">Host Name</th>
+                                            <th style="color: rgb(0,0,0);">Metric</th>
+                                            <th style="color: rgb(0,0,0);">Schedule</th>
+                                            <th style="color: rgb(0,0,0);">Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hostMaintenanceTable">
+
+
+                                        <!-- <tr>
+                                        <td>Avon</td>
+                                        <td>WSTMSPPRESENCE</td>
+                                        <td>ALWAYS ON</td>
+                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Clientele</td>
+                                        <td>CG-P-PRE-01V</td>
+                                        <td>ALWAYS ON</td>
+                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Imperial Health</td>
+                                        <td>IHS-CCAPP01</td>
+                                        <td>ALWAYS ON</td>
+                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
+                                        </td>
+                                    </tr> -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- ACTIVE SCHEDULES -->
+                        <div class="col-md-5" style="padding-top: 15px;">
+                            <h6>SETUP MAINTENANCE SCHEDULE </h6>
+
+                            <!-- <div class="container">
+                                <h6>SETUP HOST MAINTENANCE SCHEDULE </h6>
+                                <div class="row" style="margin-bottom: 25px;">
+                                    <div id="" class="col-md-6">
+                                        <button type="button" class="btn btn-dark" data-toggle="collapse"
+                                            data-target=".multi-collapse-filter">Create New Schedule</button>
+                                    </div>
+                                    <div id="" class="col-md-6">
+                                        <button id="buttonResetSchedule" class="btn btn-dark" type="button"
+                                            onclick="resetMaintenance()">Reset Host Maintenance</button>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- Collapse create Schedule -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                            <!-- <div class="collapse multi-collapse-filter" id="multiCollapseExample1">
+                                <div class="card card-body" style="background-color: rgb(189, 189, 189);">
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h6>Enter Schedule Name</h6>
+                                                    <input type="text" class="form-control" id="newScheduleName"
+                                                        placeholder="Create Name of Schedule ...">
+                                                </div>
+                                                <div class="col-md-6" style="padding-top: 15px;">
+                                                    <h6>Schedule Frequency</h6>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text"
+                                                                for="searchGroupSelect01">Frequency</label>
+                                                        </div>
+                                                        <select class="custom-select" id="selectScheduleFrequency">
+                                                            <option selected="" value="undefined">Choose Schedule
+                                                                Frequency...</option>
+                                                            <option value="ONCE">Once</option>
+                                                            <option value="DAILY">Every Day</option>
+                                                            <option value="WEEKLY">Every Week</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" style="padding-top: 15px;">
+                                                    <h6>Enable Schedule</h6>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text"
+                                                                for="searchGroupSelect01">Enable</label>
+                                                        </div>
+                                                        <select class="custom-select" id="selectScheduleEnabler">
+                                                            <option selected="" value="undefined">Choose to Enable
+                                                                Schedule...</option>
+                                                            <option value="1">Enabled</option>
+                                                            <option value="0">Disabled</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div id="ScheduleStartDate" class="col-md-6">
+                                                    <h6>Start Date</h6>
+                                                    <input id="StartDate" type="date">
+                                                </div>
+                                                <div id="ScheduleStartTime" class="col-md-6">
+                                                    <h6>Start Time</h6>
+                                                    <input id="StartTime" type="time">
+                                                </div>
+
+                                                <div id="ScheduleEndDate" class="col-md-6">
+                                                    <h6>End Date</h6>
+                                                    <input id="EndDate" type="date">
+                                                </div>
+                                                <div id="ScheduleEndTime" class="col-md-6">
+                                                    <h6>End Time</h6>
+                                                    <input id="EndTime" type="time">
+                                                </div>
+                                                <div class="col-md-6" style="padding-top: 15px;">
+                                                    <button onclick="createNewScheduleTemplate()" type="button"
+                                                        class="btn btn-dark">Create</button>
+                                                </div>
+                                                <div class="col-md-6" style="padding-top: 15px;">
+                                                    <button onclick="resetScheduler()" type="button"
+                                                        class="btn btn-dark">Reset </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- TABLE FOR SCHEDULE PREVIEW -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+
+                            <div class="container" style="padding-top: 15px;">
+                                <h6>Schedule</h6>
+                                <div class="row">
+
+                                    <div class="col-md-9">
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Select
+                                                    Schedule</label>
+                                            </div>
+                                            <select onchange="showScheduleSelected()" class="custom-select"
+                                                id="selectSchedule">
+
+                                            </select>
+                                            <!--  <input type="text" class="form-control" id="selectScheduleDisplay"
+                                                placeholder="This is the Selected Schedule..." value="" disabled> -->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-1"
+                                        style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
+                                        <a class="infoModalPress" data-toggle="modal" data-target=".schedule-modal"
+                                            onclick="openEditScheduleModal(); " title="Click to EDIT a schedule">
+                                            <i class="fas fa-pencil-alt" style="font-size: 20px;color: rgb(4,4,4);">
+                                            </i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-1"
+                                        style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
+                                        <a class="infoModalPress" data-toggle="modal"
+                                            data-target=".host-create-maintain-modal-lg"
+                                            onclick="openCreateScheduleModal(); "
+                                            title="Click to create a NEW schedule">
+                                            <i class="fas fa-plus" style="font-size: 20px;color: rgb(4,4,4);">
+                                            </i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-1"
+                                        style="padding-left: 5px; padding-right: 0px; padding-top: 5px;">
+                                        <a class="infoModalPress" onclick="toggleSelectedScheduleTable(); "
+                                            title="Click to TOGGLE Selected Schedule table">
+                                            <i class="fas fa-compress" style="font-size: 20px;color: rgb(4,4,4);">
+                                            </i>
+                                        </a>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div id="schedulesTableDiv" style="margin-bottom: 25px; padding-top: 15px;" hidden>
+                                <h6> Selected Schedule</h6>
+                                <div class="card scrollingTablesched">
+                                    <table class="table" id="completeScheduleTable" style="text-align: center;">
+                                        <thead>
+                                            <tr>
+                                                <th style="color: rgb(0,0,0);">Schedule</th>
+                                                <th style="color: rgb(0,0,0);">Frequency</th>
+                                                <th style="color: rgb(0,0,0);">Start</th>
+                                                <th style="color: rgb(0,0,0);">End</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="schedulesTable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h6 id="warningText" style="color: #ff0000; margin-top: 10px;"></h6>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12" style="padding-right: 0px;">
+                                        <h6>Site</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Site
+                                                    Selection</label>
+                                            </div>
+                                            <select onchange="getHostList()" class="custom-select" id="selectSite">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <!-- host select -->
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <div id="selectHostDiv" class="col-md-12" hidden>
+                                        <h6>Host</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Host
+                                                    Selection</label>
+                                            </div>
+                                            <select onchange="getAgentList()" class="custom-select" id="selectHost"
+                                                disabled>
+                                                <option selected="" value="undefined">Choose Host...</option>
+                                            </select>
+                                        </div>
+                                        <h6 id="AllHostWarning" style="color: #ff0000;" hidden>ALL hosts are selected
+                                            for maintenance.</h6>
+                                    </div>
+
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <!-- agent select -->
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <div id="selectAgentDiv" class="col-md-12" hidden>
+                                        <h6>Agent</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Agent
+                                                    Selection</label>
+                                            </div>
+                                            <select onchange="getServiceAndSourceList()" class="custom-select"
+                                                id="selectAgent" disabled>
+                                                <option selected="" value="undefined">Choose Agent...</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <!-- source select -->
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <div id="selectSourceDiv" class="col-md-12" hidden>
+                                        <h6>Source</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Source
+                                                    Selection</label>
+                                            </div>
+                                            <select class="custom-select" id="selectSource" disabled>
+                                                <option selected="" value="">Choose Source...</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <!-- Service select -->
+                                    <!-- --------------------------------------------------------------------------------- -->
+                                    <div id="selectServiceDiv" class="col-md-12" hidden>
+                                        <h6>Service</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Service
+                                                    Selection</label>
+                                            </div>
+                                            <select class="custom-select" id="selectService" disabled>
+                                                <!-- <option selected="" value="">Choose Service...</option> -->
+                                                <option selected="" value="All">All Services...</option>
+
+                                            </select>
+                                        </div>
+                                        <h6>Metric Value</h6>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="searchGroupSelect01">Metric
+                                                    Value Select</label>
+                                            </div>
+                                            <select class="custom-select" id="selectMetricValue">
+                                                <option selected="" value="">Choose Metric Value...
+                                                </option>
+                                                <option value="Running">Running</option>
+                                                <option value="Stopped">Stopped</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <button id="btnCompleteHostSchedule" onclick="createHostMaintenanceSchedule()"
+                                    type="button" class="btn btn-dark">Submit</button>
+                            </div>
+
+                            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------->
+                            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------->
+                            <!-- CREATE NEW SCHEDULE MODAL -->
+                            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------->
+                            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+                            <div class="modal fade host-create-maintain-modal-lg" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            Create New Schedule
+
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <!-- <div class="modal-body">
+                                        <p>2 Create a schedule to be used during host maintenance.</p>
+                                    </div> -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!--SCHEDULE DETAILS  -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <div class="modal-body">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                    <!-- FREQUENCY AND ENABLED DETAILS  -->
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                    <div class="col-md-12">
+                                                        <h6>Enter Schedule Name</h6>
+                                                        <input type="text" class="form-control" id="newScheduleName"
+                                                            placeholder="Create Name of Schedule ...">
+                                                    </div>
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                    <!-- START DATE DETAILS  -->
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                    <div id="ScheduleStartDate" class="col-md-6">
+                                                        <h6>Start Date</h6>
+                                                        <input id="nStartDate" type="date">
+                                                    </div>
+                                                    <div id="ScheduleStartTime" class="col-md-3">
+                                                        <h6>Start Time</h6>
+                                                        <input id="StartTime" type="time">
+                                                    </div>
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                    <!-- END DATE DETAILS  -->
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                    <div id="ScheduleEndDate" class="col-md-6" hidden>
+                                                        <h6>End Date</h6>
+                                                        <input id="EndDate" type="date">
+                                                    </div>
+                                                    <div id="ScheduleEndTime" class="col-md-3">
+                                                        <h6>End Time</h6>
+                                                        <input id="EndTime" type="time">
+                                                    </div>
+
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                    <!-- SCHEDULE FREQUENCY DETAILS  -->
+                                                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                    <div class="col-md-6" style="padding-top: 15px;">
+                                                        <h6>Schedule Frequency</h6>
+
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <label>
+                                                                        <input onclick="checkRadio(1)" type="radio"
+                                                                            id="radioOnce" value="ONCE"> Once
+                                                                        <input onclick="checkRadio(2)" type="radio"
+                                                                            id="radioDaily" value="DAILY"> Daily
+                                                                        <input onclick="checkRadio(3)" type="radio"
+                                                                            id="radioWeekly" value="WEEKLY"> Weekly
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text"
+                                                                for="searchGroupSelect01">Frequency</label>
+                                                        </div>
+                                                        <select class="custom-select" id="selectScheduleFrequency">
+                                                            <option selected="" value="undefined">Choose Schedule
+                                                                Frequency...</option>
+                                                            <option value="ONCE">Once</option>
+                                                            <option value="DAILY">Every Day</option>
+                                                            <option value="WEEKLY">Every Week</option>
+                                                        </select>
+                                                    </div> -->
+                                                    </div>
+                                                    <div class="col-md-6" style="padding-top: 15px;">
+                                                        <h6>Enable Schedule</h6>
+                                                        <!-- <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text"
+                                                                for="searchGroupSelect01">Enable</label>
+                                                        </div>
+                                                        <select class="custom-select" id="selectScheduleEnabler">
+                                                            <option selected="" value="undefined">Choose to Enable
+                                                                Schedule...</option>
+                                                            <option value="1">Enabled</option>
+                                                            <option value="0">Disabled</option>
+                                                        </select>
+                                                    </div> -->
+
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <label>
+                                                                        <input type="radio"
+                                                                            onclick="checkEnableSchedule(1)"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioEnable" value="1"> Enable
+                                                                        <input type="radio"
+                                                                            onclick="checkEnableSchedule(0)"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioDisable" value="0"> Disable
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <h6>Enable End Date</h6>
+
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <label>
+                                                                        <input onclick="enableEndDate(1)"
+                                                                            id="enableEndDateRadio" type="radio"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioYes"> Enable
+                                                                        <input onclick="enableEndDate(0)"
+                                                                            id="disableEndDateRadio" type="radio"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioNo"> Disable
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <!-- <div class="col-md-6" style="padding-top: 15px;"> -->
+                                            <button onclick="createNewScheduleTemplate()" type="button"
+                                                class="btn btn-dark">Create</button>
+                                            <!-- </div> -->
+                                            <!-- <div class="col-md-6" style="padding-top: 15px;"> -->
+                                            <button onclick="resetScheduler()" type="button" class="btn btn-dark">Reset
+                                            </button>
+                                            <!-- </div> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!--TOAST MESSAGE -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                <div id="modalCreateSchToastAlert" class="toast" role="alert" aria-live="assertive"
+                                    aria-atomic="true"
+                                    style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                                    <div class="toast-header">
+                                        <img class="rounded mr-2"
+                                            src="assets/images/tick-200x200_transparent__400x400.png"
+                                            alt="Toast icon alternate text" style="width: 20px;">
+                                        <strong id="toastTitleModalSch" class="mr-auto"></strong>
+                                        <!-- <small>Note</small> -->
+                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="toast-body" id="toastMessageModalSch">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- MODAL: EDIT SCHEDULE DETAILS  -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+                            <div class="modal fade schedule-modal" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            Edit Schedule Details
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- SCHEDULE DETAILS  -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                        <!-- FREQUENCY AND ENABLED DETAILS  -->
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                        <div class="col-md-12" id="selectEditScheduleDIV" hidden>
+
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <label class="input-group-text"
+                                                                        for="searchGroupSelect01">Select
+                                                                        Schedule</label>
+                                                                </div>
+                                                                <select onchange="populateEditTextboxesAfterSelect()"
+                                                                    class="custom-select" id="selectEditSchedule">
+
+                                                                </select>
+                                                                <!--  <input type="text" class="form-control" id="selectScheduleDisplay"
+                                                                            placeholder="This is the Selected Schedule..." value="" disabled> -->
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                        <div class="col-md-12">
+                                                            <h6>Enter Schedule Name</h6>
+                                                            <input type="text" class="form-control"
+                                                                id="editScheduleName"
+                                                                placeholder="Edit Name of Schedule ...">
+                                                        </div>
+
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                        <!-- START DATE DETAILS  -->
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                        <div id="editScheduleStartDate" class="col-md-6">
+                                                            <h6>Start Date</h6>
+                                                            <input id="editStartDate" type="date">
+                                                        </div>
+                                                        <div id="editScheduleStartTime" class="col-md-3">
+                                                            <h6>Start Time</h6>
+                                                            <input id="editStartTime" type="time">
+                                                        </div>
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                        <!-- END DATE DETAILS  -->
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                        <div id="editScheduleEndDate" class="col-md-6">
+                                                            <h6>End Date</h6>
+                                                            <input id="editEndDate" type="date">
+                                                        </div>
+                                                        <div id="editScheduleEndTime" class="col-md-3">
+                                                            <h6>End Time</h6>
+                                                            <input id="editEndTime" type="time">
+                                                        </div>
+                                                        <!-- <div class="col-md-6" style="padding-top: 15px;">
+                                                        <h6>Schedule Frequency</h6>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text"
+                                                                    for="searchGroupSelect01">Frequency</label>
+                                                            </div>
+                                                            <select class="custom-select"
+                                                                id="editSelectScheduleFrequency">
+                                                                <option selected="" value="undefined">Choose
+                                                                    Schedule
+                                                                    Frequency...</option>
+                                                                <option value="ONCE">Once</option>
+                                                                <option value="DAILY">Every Day</option>
+                                                                <option value="WEEKLY">Every Week</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+
+                                                        <!-- <div class="col-md-6" style="padding-top: 15px;">
+                                                        <h6>Enable Schedule</h6>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text"
+                                                                    for="searchGroupSelect01">Enable</label>
+                                                            </div>
+                                                            <select onchange="checkAffectedMaintenance()"
+                                                                class="custom-select" id="editSelectScheduleEnabler">
+                                                                <option selected="" value="undefined">Choose to Enable
+                                                                    Schedule...</option>
+                                                                <option value="1">Enabled</option>
+                                                                <option value="0">Disabled</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+
+
+
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                                        <!-- SCHEDULE FREQUENCY DETAILS  -->
+                                                        <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                                        <div class="col-md-6" style="padding-top: 15px;">
+                                                            <h6>Schedule Frequency</h6>
+
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">
+                                                                        <label>
+                                                                            <input onclick="checkEditRadio(1)"
+                                                                                type="radio" id="radioEditOnce"
+                                                                                value="ONCE"> Once
+                                                                            <input onclick="checkEditRadio(2)"
+                                                                                type="radio" id="radioEditDaily"
+                                                                                value="DAILY"> Daily
+                                                                            <input onclick="checkEditRadio(3)"
+                                                                                type="radio" id="radioEditWeekly"
+                                                                                value="WEEKLY"> Weekly
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text"
+                                                                    for="searchGroupSelect01">Frequency</label>
+                                                            </div>
+                                                            <select class="custom-select" id="selectScheduleFrequency">
+                                                                <option selected="" value="undefined">Choose Schedule
+                                                                    Frequency...</option>
+                                                                <option value="ONCE">Once</option>
+                                                                <option value="DAILY">Every Day</option>
+                                                                <option value="WEEKLY">Every Week</option>
+                                                            </select>
+                                                        </div> -->
+                                                        </div>
+                                                        <div class="col-md-6" style="padding-top: 15px;">
+                                                            <h6>Enable Schedule</h6>
+                                                            <!-- <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text"
+                                                                    for="searchGroupSelect01">Enable</label>
+                                                            </div>
+                                                            <select class="custom-select" id="selectScheduleEnabler">
+                                                                <option selected="" value="undefined">Choose to Enable
+                                                                    Schedule...</option>
+                                                                <option value="1">Enabled</option>
+                                                                <option value="0">Disabled</option>
+                                                            </select>
+                                                        </div> -->
+
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">
+                                                                        <label>
+                                                                            <input type="radio"
+                                                                                onclick="checkEnableEditSchedule(1)"
+                                                                                aria-label="Radio button for following text input"
+                                                                                id="radioEditEnable" value="1"> Enable
+                                                                            <input type="radio"
+                                                                                onclick="checkEnableEditSchedule(0)"
+                                                                                aria-label="Radio button for following text input"
+                                                                                id="radioEditDisable" value="0"> Disable
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <h6>Enable End Date</h6>
+    
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <label>
+                                                                        <input onclick="enableEndDate(1)"
+                                                                            id="enableEndDateRadio" type="radio"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioEditYes"> Enable
+                                                                        <input onclick="enableEndDate(0)"
+                                                                            id="disableEndDateRadio" type="radio"
+                                                                            aria-label="Radio button for following text input"
+                                                                            id="radioEditNo"> Disable
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="btnUpdateSchedule" onclick="editScheduleTemplate()"
+                                                type="button" data-dismiss="modal" class="btn btn-dark">Update
+                                                Schedule</button>
+                                            <!-- <button type="button" class="btn btn-dark"  aria-label="Close">Close Window</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!--TOAST MESSAGE -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                                <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                <div id="modalEditSchToastAlert" class="toast" role="alert" aria-live="assertive"
+                                    aria-atomic="true"
+                                    style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                                    <div class="toast-header">
+                                        <img class="rounded mr-2"
+                                            src="assets/images/tick-200x200_transparent__400x400.png"
+                                            alt="Toast icon alternate text" style="width: 20px;">
+                                        <strong id="toastTitleModalEditSch" class="mr-auto"></strong>
+                                        <!-- <small>Note</small> -->
+                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="toast-body" id="toastMessageModalEditSch">
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                            </div>
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- modal for login -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                            <div id="modal-login" class="modal fade show" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-body">
+                                            <div>
+                                                <div>
+                                                    <div class="row">
+                                                        <div id="log-col" class="col-md-6 col-xl-12">
+                                                            <form id="login-form" method="POST" style="width: 400px;">
+                                                                <h2 class="sr-only">Login Form</h2>
+                                                                <div class="illustration">
+                                                                    <img id="logo-inovo"
+                                                                        src="assets/images/logo_inovo.png" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input id="username-login" class="form-control"
+                                                                        type="text" placeholder="Username"
+                                                                        name="Username">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input id="password-login" class="form-control"
+                                                                        type="password" name="Password"
+                                                                        placeholder="Password">
+                                                                </div>
+                                                                <div>
+                                                                    <p id="errorMessage" style="color: red;"></p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <button id="logInBtn" onclick="checkAuth()"
+                                                                        class="btn btn-dark btn-block" type="button">Log
+                                                                        In</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------------------------------------------------------->
+                    <!-- ---------------------------------------------------------------------------------------------->
+                    <!-- Modal to LOGOUT-->
+                    <!-- ---------------------------------------------------------------------------------------------->
+                    <!-- ---------------------------------------------------------------------------------------------->
+                    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">LOGOUT</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        Would you like to logout?
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                        style="width: 230px;">Close</button>
+                                    <button type="button" onclick="logOutofDashboard(); startPage();"
+                                        data-dismiss="modal" class="btn btn-primary"
+                                        style="width: 230px;">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!--TOAST MESSAGE -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                    <div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                        style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                        <div class="toast-header">
+                            <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png"
+                                alt="Toast icon alternate text" style="width: 20px;">
+                            <strong id="toastTitle" class="mr-auto"></strong>
+                            <!-- <small>Note</small> -->
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body" id="toastMessage">
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer style="margin-left: 25px;">
+            <p> Copyright INOVO, All Rights Reserved &copy; 2019 - INOVO Host Maintenance Scheduling Dashboard </p>
+        </footer>
+
+</body>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- Modal for maintenance Details -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="modal fade host-maintain-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col">
+                    <h4 class="modal-title">Maintenance Schedule ID: <span id="idData"></span></p>
+                    </h4>
+                    <h6 class="modal-title">
+                        <strong>
+                            <p id="messageData"></p>
+                        </strong>
+                    </h6>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true"></span>X</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fa fa-building text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">sitename</span><br>
+                                    <span id="sitenameData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br>
+                                    </span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fas fa-laptop text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">hostname</span><br>
+                                    <span id="hostnameData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fas fa-clipboard-list text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">schedule name</span><br>
+                                    <span id="scheduleNameData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="container">
+                        <!-- Client details -->
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fas fa-calendar-alt text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">Frequency</span><br>
+                                    <span id="frequencyData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br>
+                                    </span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fa fa-calendar-check-o text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">Start Date</span><br>
+                                    <span id="startDateData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fa fa-calendar-times-o text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">End Date</span><br>
+                                    <span id="endDateData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="container">
+                        <!-- Date details -->
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fas fa-server text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+                                    <span class="text-uppercase text-muted h6">source</span><br>
+                                    <span id="sourceData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fas fa-ruler-combined text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">Metric</span><br>
+                                    <span id="metricData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-center"><span class="fa-stack"><i
+                                            class="fa fa-chart-line text-primary fa-stack-2x"
+                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                        <br>
+                                    </span><br>
+
+                                    <span class="text-uppercase text-muted h6">Metric value</span><br>
+                                    <span id="metricValueData" class="p-0"
+                                        style="color: rgb(42,77,112);"><br><br><br><br>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" style="width: 230px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

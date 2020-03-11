@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<!-- <script type="text/javascript" src="assets/bootstrap/js/jquery-2.1.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+	<!-- <script src="assets/bootstrap/js/jquery-3.2.1.min.js"></script> -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- <script type="text/javascript" src="assets/bootstrap/js/bootstrap-datepicker.min.js"></script> -->
+	<!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-datepicker3.css" /> -->
+	<!-- <link rel="stylesheet" href="clock/bootstrap-clockpicker.css" /> -->
+	<!-- <script type="text/javascript" src="clock/bootstrap-clockpicker.js"></script> -->
+
+
+	<link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico" />
+
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+	<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
+	<link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+
+
+	<script src="assets/js/serverMonitorTH.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<title>Inovo Server Monitor Thresholds</title>
+
+</head>
+
+<body onload="startPage()">
+	<!-- <button onclick="getHosts()">getHosts</button>
+<button onclick="getDiskInfo()">getDiskInfo</button>  -->
+
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!--NAVBAR  -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="row" id="header_row" text-align="left" style="background-color:#f8f9fa; margin-bottom: 2px;">
+			<div class="col-sm-1" id="col-Menu" style="margin-right: 5px; margin-left: 5px;">
+				<a class="btn btn-link" role="button" id="menu-toggle">
+					<i onclick="openMenu()" class="fa fa-bars" style="color: rgb(60,70,74);font-size: 40px;"></i>
+				</a>
+			</div>
+
+			<div class="col-md-2">
+				<a class="navbar-brand">
+					<img src="assets/images/logo_inovo.png">
+				</a>
+			</div>
+			<div class="col-md-8" style="margin-top: 10px; margin-right: 10px; margin-left: 15px;">
+				<!-- <h3>Central Monitoring Configuration</h2> -->
+				<h3>Server Monitor Thresholds</h2>
+			</div>
+
+		</div>
+	</nav>
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- SIDEBAR MENU -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+	<div id="wrapper" style="display: none;">
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">
+					<span class="actions" style="font-size: 16px;">
+						<a class="login" id="loginUserId"></a>
+					</span>
+				</li>
+				<!-- <li>
+                        <a href="#index-overiew">Overview Dashboard </a>
+                    </li>
+                    <li>
+                        <a href="#">Settings</a>
+                    </li> -->
+				<li id="homeSiteLink">
+					<!-- <a href="index.html#"><i class="fas fa-hammer"></i>Central Monitoring Dashboard</a> -->
+				</li>
+				<li id="hostMaintenanceLink">
+
+				</li>
+				<li id="hostManageLink">
+
+				</li>
+				<li>
+					<a data-toggle="modal" data-target="#modalLogout" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<div class="row">
+		<div class="container">
+
+
+
+			<div class="row" style="text-align: left;">
+				<div class="col-md-12">
+					<h4>Set Alert Thresholds for disk usage</h4>
+				</div>
+			</div>
+			<div class="row" style="text-align: center;">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-5">
+							<div id="selectClientFilter">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="inputGroupSelect01">Sites</label>
+									</div>
+									<div id="sites"><select class="custom-select" onchange="getHosts()"
+											id="siteInfo">
+											
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div id="selectClientFilter">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="inputGroupSelect01">Hosts</label>
+									</div>
+									<div id="hosts"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive" id="diskTable" style="margin-right: 15px">
+					<!-- </div>
+				<div class="table-responsive" id="serviceTable" style="margin-right: 15px">
+				</div> -->
+				</div>
+
+				<div class="row" style="text-align: center;">
+				</div>
+			</div>
+
+			<!-- <div class="col-md-12">
+		<input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+		<input class="form-control" id="input-a" value="" data-default="20:48">
+		<input type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$">
+	</div> -->
+		</div>
+		<!--
+<div class="input-group date" id="birthdatepicker">
+    <input type="text" id="birthdate" name="birthdate" class="form-control">
+    <span class="input-group-addon">
+           <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+    var date_input=$('input[name="date"]'); //our date input has the name "date"
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    var options={
+      format: 'mm/dd/yyyy',
+      container: container,
+      todayHighlight: true,
+      autoclose: true,
+    };
+    date_input.datepicker(options);
+  });
+$('.clockpicker').clockpicker();
+var input = $('#input-a');
+input.clockpicker({
+    autoclose: true
+});
+</script> -->
+
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+		<footer style="margin-left: 25px;">
+			<p> Copyright INOVO, All Rights Reserved &copy; 2019 - INOVO Server Monitor Thresholds Dashboard </p>
+		</footer>
+
+</body>
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- modal for login -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div id="modal-login" class="modal fade show" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<div>
+					<div>
+						<div class="row">
+							<div id="log-col" class="col-md-6 col-xl-12">
+								<form id="login-form" method="POST" style="width: 400px;">
+									<h2 class="sr-only">Login Form</h2>
+									<div class="illustration">
+										<img id="logo-inovo" src="assets/images/logo_inovo.png" />
+									</div>
+									<div class="form-group">
+										<input id="username-login" class="form-control" type="text"
+											placeholder="Username" name="Username">
+									</div>
+									<div class="form-group">
+										<input id="password-login" class="form-control" type="password" name="Password"
+											placeholder="Password">
+									</div>
+									<div>
+										<p id="errorMessage" style="color: red;"></p>
+									</div>
+									<div class="form-group">
+										<button id="logInBtn" onclick="checkAuth()" class="btn btn-dark btn-block"
+											type="button">Log In</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ---------------------------------------------------------------------------------------------->
+<!-- ---------------------------------------------------------------------------------------------->
+<!-- Modal to LOGOUT-->
+<!-- ---------------------------------------------------------------------------------------------->
+<!-- ---------------------------------------------------------------------------------------------->
+<div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">LOGOUT</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					Would you like to logout?
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"
+					style="width: 230px;">Close</button>
+				<button type="button" onclick="logOutofDashboard(); startPage();" data-dismiss="modal"
+					class="btn btn-primary" style="width: 230px;">Logout</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!--TOAST MESSAGE -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+	style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+	<div class="toast-header">
+		<img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png"
+			alt="Toast icon alternate text" style="width: 20px;">
+		<strong id="toastTitle" class="mr-auto"></strong>
+		<!-- <small>Note</small> -->
+		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="toast-body" id="toastMessage">
+
+	</div>
+</div>
+
+
+
+
+
+</html>
