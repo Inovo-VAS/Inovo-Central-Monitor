@@ -3237,7 +3237,7 @@ function createHostMaintenanceSchedule() {
 
     var scheduleSelectedEndTime;
 
-    if (receiveScheduleListReq.readyState == 4 && scheduleId != undefined) {
+    if (receiveScheduleListReq.readyState == 4 && (scheduleId != undefined || scheduleId != "undefined")) {
         var dbData = JSON.parse(showErrorMain(receiveScheduleListReq.responseText, "Error Found"));
 
         if (Object.entries(dbData).length != 0) {
@@ -3284,10 +3284,10 @@ function createHostMaintenanceSchedule() {
             retrieveAllHostsForMaintenance();
         }
         else {
-            if ((scheduleId != undefined && scheduleId != null) && selectedSite != undefined && selectedHost != undefined && selectedHost != "undefined") {
+            if ((scheduleId != undefined &&  scheduleId != "undefined" && scheduleId != null) && (selectedSite != undefined || selectedSite != "undefined" )&& (selectedHost != undefined && selectedHost != "undefined")) {
 
                 //when source and service are not selected
-                if (selectedSource == undefined && selectedService == undefined) {
+                if ((selectedSource == undefined || selectedSource == "undefined")  && (selectedService == undefined || selectedService == "undefined")) {
 
                     selectedService = "";
                     selectedSource = "";
@@ -3304,7 +3304,7 @@ function createHostMaintenanceSchedule() {
 
                     createMaintenanceScheduleReq.send("action=runopenquery&query=" + query);
                 }
-                else if (selectedSource != undefined && selectedService == undefined) {
+                else if ((selectedSource != undefined && selectedSource != "undefined") && (selectedService == undefined || selectedService == "undefined")) {
 
                     selectedService = "";
                     // selectedSource = "";
@@ -3321,7 +3321,7 @@ function createHostMaintenanceSchedule() {
 
                     createMaintenanceScheduleReq.send("action=runopenquery&query=" + query);
                 }
-                else if (selectedSource != undefined && selectedService != undefined && metricvalue == undefined) {
+                else if ((selectedSource != undefined && selectedSource != "undefined") && (selectedService != undefined && selectedService != "undefined") && (metricvalue == undefined || metricvalue == "undefined")) {
 
                     //     selectedService = "";
                     //    // selectedSource = "";
@@ -3375,9 +3375,9 @@ function createHostMaintenanceSchedule() {
                 }
 
             }
-            else if ((scheduleId != undefined && scheduleId != null) && selectedSite != undefined) {
+            else if ((scheduleId != undefined && scheduleId != "undefined" && scheduleId != null) && (selectedSite != undefined && selectedSite != "undefined")) {
 
-                if (selectedSource == undefined && selectedService == undefined && selectedHost == undefined) {
+                if ((selectedSource == undefined || selectedSource == "undefined" )&& (selectedService == undefined && selectedService == "undefined" ) && (selectedHost == undefined || selectedHost == "undefined")) {
 
                     selectedService = "";
                     selectedSource = "";
