@@ -43,9 +43,11 @@ createHMUserlogReq = getXmlHttpRequestObject();
 var createUserReq = getXmlHttpRequestObject();
 
 
+var sameHost = "";
 
-// var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
-var serverURL = "/InovoCentralMonitorClient";
+
+var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
+// var serverURL = "/InovoCentralMonitorClient";
 
 var remoteVodaEXT = "?remotehost=https://41.0.203.210:8443/InovoCentralMonitorClient/MonitorData&action=runopenquery&query=";
 
@@ -462,6 +464,10 @@ function getHostList() {
     var siteId = document.getElementById("selectSite").value;
 
     if (siteId != undefined && siteId != "undefined") {
+
+        siteSelected =  siteId
+
+    
         document.getElementById("selectHostDiv").hidden = false;
 
         document.getElementById("selectHost").disabled = false;
@@ -1593,6 +1599,9 @@ function reloadEditSchedule() {
 function getAgentList() {
     var hostName = document.getElementById("selectHost").value;
     if (hostName != "allHosts") {
+
+        if(sameHost == hostName){
+            
         document.getElementById("selectAgentDiv").hidden = false;
         document.getElementById("AllHostWarning").hidden = true;
 
@@ -1604,10 +1613,73 @@ function getAgentList() {
         receiveAgentListReq.onreadystatechange = openAgentList;
         receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         receiveAgentListReq.send("action=runopenquery&query=" + query);
+        }
+        else if(sameHost == "") {
+            document.getElementById("selectAgentDiv").hidden = false;
+            document.getElementById("AllHostWarning").hidden = true;
+    
+            document.getElementById("selectAgent").disabled = false;
+    
+            var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
+    
+            receiveAgentListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveAgentListReq.onreadystatechange = openAgentList;
+            receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveAgentListReq.send("action=runopenquery&query=" + query);
+        }
+        else {
+
+            var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
+            var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
+            var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+    
+    
+            // document.getElementById("selectScheduleDisplay");
+            // document.getElementById("selectHost").innerHTML = hostReset;
+            document.getElementById("selectSource").innerHTML = sourceReset;
+            // document.getElementById("selectHostID").innerHTML = hostIDReset;
+            document.getElementById("selectAgent").innerHTML = agentReset;
+            document.getElementById("selectService").innerHTML = serviceReset;
+    
+            // document.getElementById("selectHost").disabled = true;
+            document.getElementById("selectSource").disabled = true;
+            // document.getElementById("selectHostID").disabled = true;
+            document.getElementById("selectAgent").disabled = true;
+            document.getElementById("selectService").disabled = true;
+    
+            // document.getElementById("selectHostDiv").hidden = true;
+            document.getElementById("selectSourceDiv").hidden = true;
+            document.getElementById("selectAgentDiv").hidden = true;
+            document.getElementById("selectServiceDiv").hidden = true;
+
+        }   
 
     }
     else {
         document.getElementById("AllHostWarning").hidden = false;
+
+        var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
+        var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
+        var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+
+
+        // document.getElementById("selectScheduleDisplay");
+        // document.getElementById("selectHost").innerHTML = hostReset;
+        document.getElementById("selectSource").innerHTML = sourceReset;
+        // document.getElementById("selectHostID").innerHTML = hostIDReset;
+        document.getElementById("selectAgent").innerHTML = agentReset;
+        document.getElementById("selectService").innerHTML = serviceReset;
+
+        // document.getElementById("selectHost").disabled = true;
+        document.getElementById("selectSource").disabled = true;
+        // document.getElementById("selectHostID").disabled = true;
+        document.getElementById("selectAgent").disabled = true;
+        document.getElementById("selectService").disabled = true;
+
+        // document.getElementById("selectHostDiv").hidden = true;
+        document.getElementById("selectSourceDiv").hidden = true;
+        document.getElementById("selectAgentDiv").hidden = true;
+        document.getElementById("selectServiceDiv").hidden = true;
     }
 
 }

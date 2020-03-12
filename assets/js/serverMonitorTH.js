@@ -17,9 +17,9 @@ var createUserlogReq = getXmlHttpRequestObject();
 
 var receiveReq = getXmlHttpRequestObject();
 var receiveSitesReq = getXmlHttpRequestObject();
-// var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
+var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
 //var serverURL = "https://41.0.203.210:8443/InovoCentralMonitorClient";
-var serverURL = "/InovoCentralMonitorClient";
+// var serverURL = "/InovoCentralMonitorClient";
 
 
 function getSites() {

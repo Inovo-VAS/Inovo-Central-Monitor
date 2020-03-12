@@ -32,8 +32,8 @@ var hostUpdateReq = getXmlHttpRequestObject();
 var createUserlogReq = getXmlHttpRequestObject();
 
 
-var serverURL = "/InovoCentralMonitorClient";
-// var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
+// var serverURL = "/InovoCentralMonitorClient";
+var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
 
 var selectedDisableHostVAR;
 
