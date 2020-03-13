@@ -44,6 +44,7 @@ var createUserReq = getXmlHttpRequestObject();
 
 
 var sameHost = "";
+var siteSelected;
 
 
 var serverURL = "http://102.164.81.12:7080/InovoCentralMonitorClient";
@@ -465,18 +466,71 @@ function getHostList() {
 
     if (siteId != undefined && siteId != "undefined") {
 
-        siteSelected =  siteId
+        if(siteSelected !=  siteId ){
+        
+            siteSelected =  siteId
 
     
-        document.getElementById("selectHostDiv").hidden = false;
+         document.getElementById("selectHostDiv").hidden = false;
 
-        document.getElementById("selectHost").disabled = false;
-        var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
+         document.getElementById("selectHost").disabled = false;
+         var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
 
-        receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
-        receiveHostListReq.onreadystatechange = openHostList;
-        receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        receiveHostListReq.send("action=runopenquery&query=" + query);
+         receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
+         receiveHostListReq.onreadystatechange = openHostList;
+         receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         receiveHostListReq.send("action=runopenquery&query=" + query);
+
+        // var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
+         // var hostIDReset = "<option selected=\"\" value=\"undefined\">Choose Host ID...</option>";
+         var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
+         var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
+         var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+
+
+         // document.getElementById("selectScheduleDisplay");
+         //document.getElementById("selectHost").innerHTML = hostReset;
+         document.getElementById("selectSource").innerHTML = sourceReset;
+         // document.getElementById("selectHostID").innerHTML = hostIDReset;
+         document.getElementById("selectAgent").innerHTML = agentReset;
+         document.getElementById("selectService").innerHTML = serviceReset;
+
+        // document.getElementById("selectHost").disabled = true;
+         document.getElementById("selectSource").disabled = true;
+         // document.getElementById("selectHostID").disabled = true;
+         document.getElementById("selectAgent").disabled = true;
+         document.getElementById("selectService").disabled = true;
+
+         //document.getElementById("selectHostDiv").hidden = true;
+         document.getElementById("selectSourceDiv").hidden = true;
+         document.getElementById("selectAgentDiv").hidden = true;
+         document.getElementById("selectServiceDiv").hidden = true;
+
+        }
+        else if (siteSelected == undefined || siteSelected == "undefined"){
+            document.getElementById("selectHostDiv").hidden = false;                                                                                                                        
+
+            document.getElementById("selectHost").disabled = false;
+            var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
+   
+            receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveHostListReq.onreadystatechange = openHostList;
+            receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveHostListReq.send("action=runopenquery&query=" + query);
+
+        }
+        else{
+            document.getElementById("selectHostDiv").hidden = false;
+
+            document.getElementById("selectHost").disabled = false;
+            var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
+   
+            receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveHostListReq.onreadystatechange = openHostList;
+            receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveHostListReq.send("action=runopenquery&query=" + query);
+
+        }
     }
     else {
 
@@ -1834,10 +1888,10 @@ function getServiceAndSourceList() {
 
         receiveServiceListReq.open("POST", serverURL + "/MonitorData", true);
 
-        receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
+        // receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
         //Set the function that will be called when the XmlHttpRequest objects state changes.		
-        receiveSourceFilterReq.onreadystatechange = loadServiceAndSourceList;
-        receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // receiveSourceFilterReq.onreadystatechange = loadServiceAndSourceList;
+        // receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         //Set the function that will be called when the XmlHttpRequest objects state changes.		
         receiveServiceListReq.onreadystatechange = loadServiceAndSourceList;
         receiveServiceListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1845,8 +1899,8 @@ function getServiceAndSourceList() {
         //Make the actual request.		
         // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
         // var querySource = "SELECT DISTINCT InovoMonitor.tblAlarms.source FROM InovoMonitor.tblAlarms WHERE InovoMonitor.tblAlarms.hostid=" + hostID + ";;";
-        var querySource = "SELECT * FROM InovoMonitor.tblAlarmSources;";
-        receiveSourceFilterReq.send("action=runopenquery&query=" + querySource);
+        // var querySource = "SELECT * FROM InovoMonitor.tblAlarmSources;";
+        // receiveSourceFilterReq.send("action=runopenquery&query=" + querySource);
 
         //Make the actual request.		
         // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
@@ -1968,18 +2022,18 @@ function loadSourceList() {
 
 function loadServiceAndSourceList() {
 
-    if (receiveServiceListReq.readyState == 4 && receiveSourceFilterReq.readyState == 4) {
+    if (receiveServiceListReq.readyState == 4 /*&& receiveSourceFilterReq.readyState == 4*/) {
 
         var siteSoTxtData = "", filSoData, filSerData;
 
         //Here we should have some JSON data !!
-        var dbData = JSON.parse(showErrorMain(receiveSourceFilterReq.responseText, "Error Found"));
+        // var dbData = JSON.parse(showErrorMain(receiveSourceFilterReq.responseText, "Error Found"));
         var dbServiceData = JSON.parse(showErrorMain(receiveServiceListReq.responseText, "Error Found"));
 
 
-        if ((Object.entries(dbData['queryresult']).length != 0) && (Object.entries(dbServiceData['queryresult']).length != 0)) {
+        if (/*(Object.entries(dbData['queryresult']).length != 0) &&*/ (Object.entries(dbServiceData['queryresult']).length != 0)) {
 
-            arrayAlarm = dbData['queryresult'];
+            //arrayAlarm = dbData['queryresult'];
             var siteSerTxtData = "", filSerData;
             //Here we should have some JSON data !!
             arrayServiceAlarm = dbServiceData['queryresult'];
@@ -1990,24 +2044,24 @@ function loadServiceAndSourceList() {
             siteSerTxtData += filSerData;
 
 
-            filSoData = "<div id=\"selectSourceList\"><div class=\"input-group mb-3\"><div class=\"input-group-prepend\"><label class=\"input-group-text\" for=\"searchGroupSelect01\">Source Selection</label></div><select class=\"custom-select\"  id=\"selectSearchSource\"><option value=\"undefined\" selected>Choose Source...</option>";
+            // filSoData = "<div id=\"selectSourceList\"><div class=\"input-group mb-3\"><div class=\"input-group-prepend\"><label class=\"input-group-text\" for=\"searchGroupSelect01\">Source Selection</label></div><select class=\"custom-select\"  id=\"selectSearchSource\"><option value=\"undefined\" selected>Choose Source...</option>";
 
-            siteSoTxtData += filSoData;
+            // siteSoTxtData += filSoData;
 
-            if (arrayServiceAlarm.length != 0 && arrayAlarm.length != 0) {
+            if (arrayServiceAlarm.length != 0 /*&& arrayAlarm.length != 0*/) {
 
                 // ------------------------------------------------------------------------------
                 // source
                 // ------------------------------------------------------------------------------
 
-                for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
-                    var rowData = arrayAlarm[iAlarm];
+                // for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
+                //     var rowData = arrayAlarm[iAlarm];
 
-                    filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
+                //     filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
 
-                    siteSoTxtData += filSoData;
-                }
-                document.getElementById("selectSource").innerHTML = siteSoTxtData;
+                //     siteSoTxtData += filSoData;
+                // }
+                // document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
 
 
@@ -2023,7 +2077,7 @@ function loadServiceAndSourceList() {
                     siteSerTxtData += filSerData;
                 }
                 document.getElementById("selectService").innerHTML = siteSerTxtData;
-                document.getElementById("selectSource").innerHTML = siteSoTxtData;
+                // document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
 
                 document.getElementById("selectServiceDiv").hidden = false;
@@ -2033,7 +2087,7 @@ function loadServiceAndSourceList() {
 
 
             }
-            else if (arrayServiceAlarm.length == 0 && arrayAlarm.length != 0) {
+            else if (arrayServiceAlarm.length == 0 /*&& arrayAlarm.length != 0*/) {
                 // ------------------------------------------------------------------------------
                 // source
                 // ------------------------------------------------------------------------------
