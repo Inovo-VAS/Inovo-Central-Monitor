@@ -1773,50 +1773,7 @@ function openAgentList() {
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-function getSourceyList() {
 
-    receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
-    //Set the function that will be called when the XmlHttpRequest objects state changes.		
-    receiveSourceFilterReq.onreadystatechange = loadSourceList;
-    receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    //Make the actual request.		
-    // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
-    var query = "SELECT DISTINCT InovoMonitor.tblAlarms.source FROM InovoMonitor.tblAlarms;";
-    receiveSourceFilterReq.send("action=runopenquery&query=" + query);
-}
-
-function loadSourceyList() {
-    var siteTxtData = "", filSoData;
-    //Here we should have some JSON data !!
-    var dbData = JSON.parse(showErrorMain(receiveSourceFilterReq.responseText, "Error Found"));
-
-    if (Object.entries(dbData['queryresult']).length != 0) {
-
-        arrayAlarm = dbData['queryresult'];
-
-
-        filSoData = "<div id=\"selectSourceList\"><div class=\"input-group mb-3\"><div class=\"input-group-prepend\"><label class=\"input-group-text\" for=\"searchGroupSelect01\">Source Selection</label></div><select class=\"custom-select\"  id=\"selectSearchSource\"><option value=\"undefined\" selected>Choose Source...</option>";
-
-        siteTxtData += filSoData;
-
-
-        for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
-            var rowData = arrayAlarm[iAlarm];
-
-            filSoData = "<option value=\"" + rowData['source'] + "\">" + rowData['source'] + "</option>";
-
-            siteTxtData += filSoData;
-        }
-        document.getElementById("selectSource").innerHTML = siteTxtData;
-
-    }
-
-}
-
-function retrieveHostsForSourceList() {
-
-}
 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1825,34 +1782,6 @@ function retrieveHostsForSourceList() {
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-function getSourceList() {
-    var hostID = document.getElementById("selectAgent").value;
-    // for
-    var agentName = $("#selectAgent option:selected").text(); //document.getElementById("selectAgent")[index].text;
-    if (agentName == "ServerMonitor") {
-
-
-        receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
-        //Set the function that will be called when the XmlHttpRequest objects state changes.		
-        receiveSourceFilterReq.onreadystatechange = loadServiceAndSourceList;
-        receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        //Make the actual request.		
-        // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
-        // var querySource = "SELECT DISTINCT InovoMonitor.tblAlarms.source FROM InovoMonitor.tblAlarms WHERE InovoMonitor.tblAlarms.hostid=" + hostID + ";;";
-        var querySource = "SELECT * FROM InovoMonitor.tblAlarmSources;";
-        receiveSourceFilterReq.send("action=runopenquery&query=" + querySource);
-
-
-    } else {
-        document.getElementById("selectServiceDiv").hidden = true;
-        document.getElementById("selectSourceDiv").hidden = true;
-        document.getElementById("selectService").disabled = true;
-        document.getElementById("selectSource").disabled = true;
-    }
-
-
-}
 
 function getServiceList() {
     var hostID = document.getElementById("selectAgent").value;
@@ -1957,12 +1886,12 @@ function loadSourceList() {
 
                     siteSoTxtData += filSoData;
                 }
-                document.getElementById("selectSource").innerHTML = siteSoTxtData;
+                // document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
 
 
 
-                document.getElementById("selectSource").innerHTML = siteSoTxtData;
+                // document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
 
                 document.getElementById("selectSourceDiv").hidden = false;
@@ -2010,9 +1939,9 @@ function loadSourceList() {
                 document.getElementById("selectService").disabled = false;
 
             } else {
-                // document.getElementById("selectServiceDiv").hidden = true;
+                document.getElementById("selectServiceDiv").hidden = true;
                 document.getElementById("selectSourceDiv").hidden = true;
-                // document.getElementById("selectService").disabled = true;
+                document.getElementById("selectService").disabled = true;
                 document.getElementById("selectSource").disabled = true;
             }
         }
