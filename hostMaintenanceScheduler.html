@@ -10,13 +10,19 @@
     <!-- <script src="assets/js/alarmTable.js"></script> -->
 
 
+   
+    <!-- <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script> -->
+    <!-- <script src="assets/js/Sidebar-Menu.js"></script> -->
 
-    <link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico" />
+    <!-- <script src="assets/js/alarmTable.js"></script> -->
+
+
+
+    <link rel="shortcut icon" href="assets/images/tick-200x200_transparent__400x400 copy.ico"/>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">    
+    
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -25,7 +31,7 @@
     <script type="text/javascript" src="assets/js/maintenance.js"></script>
     <script type="text/javascript" src="assets/js/moment.js"></script>
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script> -->
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
     <!-- <script src="assets/js/Sidebar-Menu.js"></script> -->
 
 </head>
@@ -44,8 +50,7 @@
         <div class="row" id="header_row" text-align="left">
             <div class="col-sm-1" id="col-Menu">
                 <a class="btn btn-link" role="button" id="menu-toggle">
-                    <i onclick="openMenu()" id="menu-button" class="fa fa-bars"
-                        style="color: rgb(60,70,74);font-size: 40px;"></i>
+                    <i onclick="openMenu()" id="menu-button" class="fa fa-bars" style="color: rgb(60,70,74);font-size: 40px;"></i>
                 </a>
             </div>
 
@@ -56,7 +61,7 @@
             </div>
             <div id="col-Header" class="col-md-8" style="margin-top: 10px;">
                 <h4>Maintenance Scheduling Dashboard</h4>
-            </div>  
+            </div>
 
 
             <!-- <div class="col-md-1">
@@ -80,7 +85,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <span class="actions" style="font-size: 16px;">
-                        <a class="login" id="loginUserId"></a>
+                        <a class="login" id="loginUserId">esiwela(Administrator)</a>
                     </span>
                 </li>
                 <!-- <li>
@@ -89,15 +94,9 @@
                     <li>
                         <a href="#">Settings</a>
                     </li> -->
-                <li id="homeSiteLink">
-                    <!-- <a href="index.html#"><i class="fas fa-hammer"></i>Central Monitoring Dashboard</a> -->
-                </li>
-                <li id="hostManageLink">
-
-                </li>
-                <li id="serverMonitorThresholdLink">
-
-                </li>
+                <li id="homeSiteLink"><a href="index.html#&amp;key=fbadbcbd-8db9-11e9-9924-d66f956b95a5"><i class="fas fa-home"></i> Monitoring Dashboard</a></li>
+                <li id="hostManageLink"><a href="hostManagement.html#&amp;key=fbadbcbd-8db9-11e9-9924-d66f956b95a5"><i class="fas fa-server"></i> Host Management</a></li>
+                <li id="serverMonitorThresholdLink"><a href="ServerMonitorThresholds.html#&amp;key=fbadbcbd-8db9-11e9-9924-d66f956b95a5"><i class="fas fa-hdd"></i> Server Monitor Threshold</a></li>
                 <li>
                     <a data-toggle="modal" data-target="#modalLogout" href="#"><i class="fa fa-sign-out"></i>Logout</a>
                 </li>
@@ -133,31 +132,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="hostMaintenanceTable">
-
-
-                                        <!-- <tr>
-                                        <td>Avon</td>
-                                        <td>WSTMSPPRESENCE</td>
-                                        <td>ALWAYS ON</td>
-                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Clientele</td>
-                                        <td>CG-P-PRE-01V</td>
-                                        <td>ALWAYS ON</td>
-                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Imperial Health</td>
-                                        <td>IHS-CCAPP01</td>
-                                        <td>ALWAYS ON</td>
-                                        <td><i class="fas fa-ellipsis-v" style="font-size: 20px;color: rgb(4,4,4);"></i>
-                                        </td>
-                                    </tr> -->
-
-                                    </tbody>
+									</tbody>
                                 </table>
                             </div>
                         </div>
@@ -279,37 +254,26 @@
                                                 <label class="input-group-text" for="searchGroupSelect01">Select
                                                     Schedule</label>
                                             </div>
-                                            <select onchange="showScheduleSelected()" class="custom-select"
-                                                id="selectSchedule">
-
-                                            </select>
+                                            <select onchange="showScheduleSelected()" class="custom-select" id="selectSchedule"><option selected="" value="undefined">Choose Schedule...</option><option value="3">Daily Maintenance - 4 to 5</option><option value="5">Daily Maintenance 1</option><option value="13">Avon Daily Maintenance</option><option value="16">Daily Maintenance - Tsogo</option><option value="17">Daily Maintenance - 5 to 5:30</option><option value="18">Daily Maintenance - 5:30 to 6</option></select>
                                             <!--  <input type="text" class="form-control" id="selectScheduleDisplay"
                                                 placeholder="This is the Selected Schedule..." value="" disabled> -->
                                         </div>
 
                                     </div>
-                                    <div class="col-md-1"
-                                        style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
-                                        <a class="infoModalPress" data-toggle="modal" data-target=".schedule-modal"
-                                            onclick="openEditScheduleModal(); " title="Click to EDIT a schedule">
+                                    <div class="col-md-1" style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
+                                        <a class="infoModalPress" data-toggle="modal" data-target=".schedule-modal" onclick="openEditScheduleModal(); " title="Click to EDIT a schedule">
                                             <i class="fas fa-pencil-alt" style="font-size: 20px;color: rgb(4,4,4);">
                                             </i>
                                         </a>
                                     </div>
-                                    <div class="col-md-1"
-                                        style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
-                                        <a class="infoModalPress" data-toggle="modal"
-                                            data-target=".host-create-maintain-modal-lg"
-                                            onclick="openCreateScheduleModal(); "
-                                            title="Click to create a NEW schedule">
+                                    <div class="col-md-1" style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
+                                        <a class="infoModalPress" data-toggle="modal" data-target=".host-create-maintain-modal-lg" onclick="openCreateScheduleModal(); " title="Click to create a NEW schedule">
                                             <i class="fas fa-plus" style="font-size: 20px;color: rgb(4,4,4);">
                                             </i>
                                         </a>
                                     </div>
-                                    <div class="col-md-1"
-                                        style="padding-left: 5px; padding-right: 0px; padding-top: 5px;">
-                                        <a class="infoModalPress" onclick="toggleSelectedScheduleTable(); "
-                                            title="Click to TOGGLE Selected Schedule table">
+                                    <div class="col-md-1" style="padding-left: 5px; padding-right: 0px; padding-top: 5px;">
+                                        <a class="infoModalPress" onclick="toggleSelectedScheduleTable(); " title="Click to TOGGLE Selected Schedule table">
                                             <i class="fas fa-compress" style="font-size: 20px;color: rgb(4,4,4);">
                                             </i>
                                         </a>
@@ -318,7 +282,7 @@
 
                                 </div>
                             </div>
-                            <div id="schedulesTableDiv" style="margin-bottom: 25px; padding-top: 15px;" hidden>
+                            <div id="schedulesTableDiv" style="margin-bottom: 25px; padding-top: 15px;" hidden="">
                                 <h6> Selected Schedule</h6>
                                 <div class="card scrollingTablesched">
                                     <table class="table" id="completeScheduleTable" style="text-align: center;">
@@ -346,42 +310,38 @@
                                                 <label class="input-group-text" for="searchGroupSelect01">Site
                                                     Selection</label>
                                             </div>
-                                            <select onchange="getHostList()" class="custom-select" id="selectSite">
-
-                                            </select>
+                                            <select onchange="getHostList()" class="custom-select" id="selectSite"><option selected="" value="undefined">Choose Schedule Site...</option><option value="23">Avon</option><option value="33">Clientele</option><option value="27">Imperial Health</option><option value="14">Inovo PTA</option><option value="8">KingPrice</option><option value="32">Lancet</option><option value="24">Liberty</option><option value="18">Mango</option><option value="35">Medihelp</option><option value="29">Medipost</option><option value="19">Mendix-Seacom</option><option value="4">Nosa</option><option value="2">PinkElephant</option><option value="17">PSG</option><option value="20">Sage</option><option value="26">Scania</option><option value="31">Twinsaver</option><option value="21">WFS</option><option value="3">Xlink</option></select>
                                         </div>
                                     </div>
                                     <!-- --------------------------------------------------------------------------------- -->
                                     <!-- host select -->
                                     <!-- --------------------------------------------------------------------------------- -->
-                                    <div id="selectHostDiv" class="col-md-12" hidden>
+                                    <div id="selectHostDiv" class="col-md-12" hidden="">
                                         <h6>Host</h6>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="searchGroupSelect01">Host
                                                     Selection</label>
                                             </div>
-                                            <select onchange="getAgentList()" class="custom-select" id="selectHost"
-                                                disabled>
+                                            <select onchange="getAgentList()" class="custom-select" id="selectHost" disabled="">
                                                 <option selected="" value="undefined">Choose Host...</option>
                                             </select>
                                         </div>
-                                        <h6 id="AllHostWarning" style="color: #ff0000;" hidden>ALL hosts are selected
+                                        <h6 id="AllHostWarning" style="color: #ff0000;" hidden="">ALL hosts are selected
                                             for maintenance.</h6>
                                     </div>
 
                                     <!-- --------------------------------------------------------------------------------- -->
                                     <!-- agent select -->
                                     <!-- --------------------------------------------------------------------------------- -->
-                                    <div id="selectAgentDiv" class="col-md-12" hidden>
+                                    <div id="selectAgentDiv" class="col-md-12" hidden="">
                                         <h6>Agent</h6>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="searchGroupSelect01">Agent
                                                     Selection</label>
                                             </div>
-                                            <select onchange="getServiceAndSourceList()" class="custom-select"
-                                                id="selectAgent" disabled>
+                                            <select onchange="getServiceAndSourceList()" class="custom-select" id="selectAgent" disabled="">
                                                 <option selected="" value="undefined">Choose Agent...</option>
 
                                             </select>
@@ -390,16 +350,15 @@
                                     <!-- --------------------------------------------------------------------------------- -->
                                     <!-- source select -->
                                     <!-- --------------------------------------------------------------------------------- -->
-                                    <div id="selectSourceDiv" class="col-md-12" hidden>
+                                    <div id="selectSourceDiv" class="col-md-12" hidden="">
                                         <h6>Source</h6>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="searchGroupSelect01">Source
                                                     Selection</label>
                                             </div>
-                                            <select class="custom-select" id="selectSource" disabled>
-                                                <!-- <option selected="" value="">Choose Source...</option> -->
-                                                <option value="ServiceStatus">ServiceStatus</option>
+                                            <select class="custom-select" id="selectSource" disabled="">
+                                                <option selected="" value="">Choose Source...</option>
 
                                             </select>
                                         </div>
@@ -407,14 +366,14 @@
                                     <!-- --------------------------------------------------------------------------------- -->
                                     <!-- Service select -->
                                     <!-- --------------------------------------------------------------------------------- -->
-                                    <div id="selectServiceDiv" class="col-md-12" hidden>
+                                    <div id="selectServiceDiv" class="col-md-12" hidden="">
                                         <h6>Service</h6>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="searchGroupSelect01">Service
                                                     Selection</label>
                                             </div>
-                                            <select class="custom-select" id="selectService" disabled>
+                                            <select class="custom-select" id="selectService" disabled="">
                                                 <!-- <option selected="" value="">Choose Service...</option> -->
                                                 <option selected="" value="All">All Services...</option>
 
@@ -437,8 +396,7 @@
                                     </div>
 
                                 </div>
-                                <button id="btnCompleteHostSchedule" onclick="createHostMaintenanceSchedule()"
-                                    type="button" class="btn btn-dark">Submit</button>
+                                <button id="btnCompleteHostSchedule" onclick="createHostMaintenanceSchedule()" type="button" class="btn btn-dark">Submit</button>
                             </div>
 
                             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------->
@@ -450,15 +408,13 @@
 
 
 
-                            <div class="modal fade host-create-maintain-modal-lg" tabindex="-1" role="dialog"
-                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal fade host-create-maintain-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             Create New Schedule
 
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span aria-hidden="true">×</span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
                                         </div>
                                         <!-- <div class="modal-body">
@@ -478,8 +434,7 @@
 
                                                     <div class="col-md-12">
                                                         <h6>Enter Schedule Name</h6>
-                                                        <input type="text" class="form-control" id="newScheduleName"
-                                                            placeholder="Create Name of Schedule ...">
+                                                        <input type="text" class="form-control" id="newScheduleName" placeholder="Create Name of Schedule ...">
                                                     </div>
                                                     <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
                                                     <!-- START DATE DETAILS  -->
@@ -497,7 +452,7 @@
                                                     <!-- END DATE DETAILS  -->
                                                     <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                                                    <div id="ScheduleEndDate" class="col-md-6" hidden>
+                                                    <div id="ScheduleEndDate" class="col-md-6" hidden="">
                                                         <h6>End Date</h6>
                                                         <input id="EndDate" type="date">
                                                     </div>
@@ -517,12 +472,9 @@
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">
                                                                     <label>
-                                                                        <input onclick="checkRadio(1)" type="radio"
-                                                                            id="radioOnce" value="ONCE"> Once
-                                                                        <input onclick="checkRadio(2)" type="radio"
-                                                                            id="radioDaily" value="DAILY"> Daily
-                                                                        <input onclick="checkRadio(3)" type="radio"
-                                                                            id="radioWeekly" value="WEEKLY"> Weekly
+                                                                        <input onclick="checkRadio(1)" type="radio" id="radioOnce" value="ONCE"> Once
+                                                                        <input onclick="checkRadio(2)" type="radio" id="radioDaily" value="DAILY"> Daily
+                                                                        <input onclick="checkRadio(3)" type="radio" id="radioWeekly" value="WEEKLY"> Weekly
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -561,14 +513,8 @@
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">
                                                                     <label>
-                                                                        <input type="radio"
-                                                                            onclick="checkEnableSchedule(1)"
-                                                                            aria-label="Radio button for following text input"
-                                                                            id="radioEnable" value="1"> Enable
-                                                                        <input type="radio"
-                                                                            onclick="checkEnableSchedule(0)"
-                                                                            aria-label="Radio button for following text input"
-                                                                            id="radioDisable" value="0"> Disable
+                                                                        <input type="radio" onclick="checkEnableSchedule(1)" aria-label="Radio button for following text input" id="radioEnable" value="1"> Enable
+                                                                        <input type="radio" onclick="checkEnableSchedule(0)" aria-label="Radio button for following text input" id="radioDisable" value="0"> Disable
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -580,14 +526,8 @@
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">
                                                                     <label>
-                                                                        <input onclick="enableEndDate(1)"
-                                                                            id="enableEndDateRadio" type="radio"
-                                                                            aria-label="Radio button for following text input"
-                                                                            id="radioYes"> Enable
-                                                                        <input onclick="enableEndDate(0)"
-                                                                            id="disableEndDateRadio" type="radio"
-                                                                            aria-label="Radio button for following text input"
-                                                                            id="radioNo"> Disable
+                                                                        <input onclick="enableEndDate(1)" id="enableEndDateRadio" type="radio" aria-label="Radio button for following text input"> Enable
+                                                                        <input onclick="enableEndDate(0)" id="disableEndDateRadio" type="radio" aria-label="Radio button for following text input"> Disable
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -599,8 +539,7 @@
 
                                         <div class="modal-footer">
                                             <!-- <div class="col-md-6" style="padding-top: 15px;"> -->
-                                            <button onclick="createNewScheduleTemplate()" type="button"
-                                                class="btn btn-dark">Create</button>
+                                            <button onclick="createNewScheduleTemplate()" type="button" class="btn btn-dark">Create</button>
                                             <!-- </div> -->
                                             <!-- <div class="col-md-6" style="padding-top: 15px;"> -->
                                             <button onclick="resetScheduler()" type="button" class="btn btn-dark">Reset
@@ -618,18 +557,13 @@
                                 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
                                 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                                <div id="modalCreateSchToastAlert" class="toast" role="alert" aria-live="assertive"
-                                    aria-atomic="true"
-                                    style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                                <div id="modalCreateSchToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
                                     <div class="toast-header">
-                                        <img class="rounded mr-2"
-                                            src="assets/images/tick-200x200_transparent__400x400.png"
-                                            alt="Toast icon alternate text" style="width: 20px;">
+                                        <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png" alt="Toast icon alternate text" style="width: 20px;">
                                         <strong id="toastTitleModalSch" class="mr-auto"></strong>
                                         <!-- <small>Note</small> -->
-                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="toast-body" id="toastMessageModalSch">
@@ -646,14 +580,12 @@
                             <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
 
-                            <div class="modal fade schedule-modal" tabindex="-1" role="dialog"
-                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal fade schedule-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             Edit Schedule Details
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span aria-hidden="true">×</span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                                             </button>
                                         </div>
                                         <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -669,16 +601,14 @@
                                                         <!-- FREQUENCY AND ENABLED DETAILS  -->
                                                         <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                                                        <div class="col-md-12" id="selectEditScheduleDIV" hidden>
+                                                        <div class="col-md-12" id="selectEditScheduleDIV" hidden="">
 
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <label class="input-group-text"
-                                                                        for="searchGroupSelect01">Select
+                                                                    <label class="input-group-text" for="searchGroupSelect01">Select
                                                                         Schedule</label>
                                                                 </div>
-                                                                <select onchange="populateEditTextboxesAfterSelect()"
-                                                                    class="custom-select" id="selectEditSchedule">
+                                                                <select onchange="populateEditTextboxesAfterSelect()" class="custom-select" id="selectEditSchedule">
 
                                                                 </select>
                                                                 <!--  <input type="text" class="form-control" id="selectScheduleDisplay"
@@ -691,9 +621,7 @@
 
                                                         <div class="col-md-12">
                                                             <h6>Enter Schedule Name</h6>
-                                                            <input type="text" class="form-control"
-                                                                id="editScheduleName"
-                                                                placeholder="Edit Name of Schedule ...">
+                                                            <input type="text" class="form-control" id="editScheduleName" placeholder="Edit Name of Schedule ...">
                                                         </div>
 
                                                         <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -768,15 +696,9 @@
                                                                 <div class="input-group-prepend">
                                                                     <div class="input-group-text">
                                                                         <label>
-                                                                            <input onclick="checkEditRadio(1)"
-                                                                                type="radio" id="radioEditOnce"
-                                                                                value="ONCE"> Once
-                                                                            <input onclick="checkEditRadio(2)"
-                                                                                type="radio" id="radioEditDaily"
-                                                                                value="DAILY"> Daily
-                                                                            <input onclick="checkEditRadio(3)"
-                                                                                type="radio" id="radioEditWeekly"
-                                                                                value="WEEKLY"> Weekly
+                                                                            <input onclick="checkEditRadio(1)" type="radio" id="radioEditOnce" value="ONCE"> Once
+                                                                            <input onclick="checkEditRadio(2)" type="radio" id="radioEditDaily" value="DAILY"> Daily
+                                                                            <input onclick="checkEditRadio(3)" type="radio" id="radioEditWeekly" value="WEEKLY"> Weekly
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -815,21 +737,15 @@
                                                                 <div class="input-group-prepend">
                                                                     <div class="input-group-text">
                                                                         <label>
-                                                                            <input type="radio"
-                                                                                onclick="checkEnableEditSchedule(1)"
-                                                                                aria-label="Radio button for following text input"
-                                                                                id="radioEditEnable" value="1"> Enable
-                                                                            <input type="radio"
-                                                                                onclick="checkEnableEditSchedule(0)"
-                                                                                aria-label="Radio button for following text input"
-                                                                                id="radioEditDisable" value="0"> Disable
+                                                                            <input type="radio" onclick="checkEnableEditSchedule(1)" aria-label="Radio button for following text input" id="radioEditEnable" value="1"> Enable
+                                                                            <input type="radio" onclick="checkEnableEditSchedule(0)" aria-label="Radio button for following text input" id="radioEditDisable" value="0"> Disable
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                             <!-- <h6>Enable End Date</h6>
-    
+
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text">
@@ -854,8 +770,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button id="btnUpdateSchedule" onclick="editScheduleTemplate()"
-                                                type="button" data-dismiss="modal" class="btn btn-dark">Update
+                                            <button id="btnUpdateSchedule" onclick="editScheduleTemplate()" type="button" data-dismiss="modal" class="btn btn-dark">Update
                                                 Schedule</button>
                                             <!-- <button type="button" class="btn btn-dark"  aria-label="Close">Close Window</button> -->
                                         </div>
@@ -870,18 +785,13 @@
                                 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
                                 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                                <div id="modalEditSchToastAlert" class="toast" role="alert" aria-live="assertive"
-                                    aria-atomic="true"
-                                    style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                                <div id="modalEditSchToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
                                     <div class="toast-header">
-                                        <img class="rounded mr-2"
-                                            src="assets/images/tick-200x200_transparent__400x400.png"
-                                            alt="Toast icon alternate text" style="width: 20px;">
+                                        <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png" alt="Toast icon alternate text" style="width: 20px;">
                                         <strong id="toastTitleModalEditSch" class="mr-auto"></strong>
                                         <!-- <small>Note</small> -->
-                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="toast-body" id="toastMessageModalEditSch">
@@ -903,7 +813,7 @@
                             <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
                             <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                            <div id="modal-login" class="modal fade show" tabindex="-1" role="dialog">
+                            <div id="modal-login" class="modal fade show" tabindex="-1" role="dialog" style="display: none;">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
 
@@ -915,25 +825,19 @@
                                                             <form id="login-form" method="POST" style="width: 400px;">
                                                                 <h2 class="sr-only">Login Form</h2>
                                                                 <div class="illustration">
-                                                                    <img id="logo-inovo"
-                                                                        src="assets/images/logo_inovo.png" />
+                                                                    <img id="logo-inovo" src="assets/images/logo_inovo.png">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input id="username-login" class="form-control"
-                                                                        type="text" placeholder="Username"
-                                                                        name="Username">
+                                                                    <input id="username-login" class="form-control" type="text" placeholder="Username" name="Username">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input id="password-login" class="form-control"
-                                                                        type="password" name="Password"
-                                                                        placeholder="Password">
+                                                                    <input id="password-login" class="form-control" type="password" name="Password" placeholder="Password">
                                                                 </div>
                                                                 <div>
                                                                     <p id="errorMessage" style="color: red;"></p>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <button id="logInBtn" onclick="checkAuth()"
-                                                                        class="btn btn-dark btn-block" type="button">Log
+                                                                    <button id="logInBtn" onclick="checkAuth()" class="btn btn-dark btn-block" type="button">Log
                                                                         In</button>
                                                                 </div>
                                                             </form>
@@ -953,14 +857,13 @@
                     <!-- Modal to LOGOUT-->
                     <!-- ---------------------------------------------------------------------------------------------->
                     <!-- ---------------------------------------------------------------------------------------------->
-                    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                        aria-hidden="true">
+                    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">LOGOUT</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
@@ -969,11 +872,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                        style="width: 230px;">Close</button>
-                                    <button type="button" onclick="logOutofDashboard(); startPage();"
-                                        data-dismiss="modal" class="btn btn-primary"
-                                        style="width: 230px;">Logout</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 230px;">Close</button>
+                                    <button type="button" onclick="logOutofDashboard(); startPage();" data-dismiss="modal" class="btn btn-primary" style="width: 230px;">Logout</button>
                                 </div>
                             </div>
                         </div>
@@ -985,15 +885,13 @@
                     <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
                     <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-                    <div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-                        style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
+                    <div id="mainPageToastAlert" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0; background-color: rgb(209, 209, 209);">
                         <div class="toast-header">
-                            <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png"
-                                alt="Toast icon alternate text" style="width: 20px;">
+                            <img class="rounded mr-2" src="assets/images/tick-200x200_transparent__400x400.png" alt="Toast icon alternate text" style="width: 20px;">
                             <strong id="toastTitle" class="mr-auto"></strong>
                             <!-- <small>Note</small> -->
                             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="toast-body" id="toastMessage">
@@ -1008,10 +906,10 @@
         </div>
 
         <footer style="margin-left: 25px;">
-            <p> Copyright INOVO, All Rights Reserved &copy; 2019 - INOVO Host Maintenance Scheduling Dashboard </p>
+            <p> Copyright INOVO, All Rights Reserved © 2019 - INOVO Host Maintenance Scheduling Dashboard </p>
         </footer>
+    </div>
 
-</body>
 
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -1020,13 +918,12 @@
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="modal fade host-maintain-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="false">
+<div class="modal fade host-maintain-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col">
-                    <h4 class="modal-title">Maintenance Schedule ID: <span id="idData"></span></p>
+                    <h4 class="modal-title">Maintenance Schedule ID: <span id="idData"></span><p></p>
                     </h4>
                     <h6 class="modal-title">
                         <strong>
@@ -1034,17 +931,14 @@
                         </strong>
                     </h6>
                 </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true"></span>X</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>X</button>
             </div>
             <div class="modal-body">
                 <div>
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fa fa-building text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fa fa-building text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
@@ -1053,26 +947,20 @@
                                     </span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fas fa-laptop text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fas fa-laptop text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
                                     <span class="text-uppercase text-muted h6">hostname</span><br>
-                                    <span id="hostnameData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    <span id="hostnameData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br></span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fas fa-clipboard-list text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fas fa-clipboard-list text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
                                     <span class="text-uppercase text-muted h6">schedule name</span><br>
-                                    <span id="scheduleNameData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    <span id="scheduleNameData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br></span></p>
                             </div>
                         </div>
                     </div>
@@ -1084,9 +972,7 @@
                         <!-- Client details -->
                         <div class="row">
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fas fa-calendar-alt text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fas fa-calendar-alt text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
@@ -1095,20 +981,15 @@
                                     </span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fa fa-calendar-check-o text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fa fa-calendar-check-o text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
                                     <span class="text-uppercase text-muted h6">Start Date</span><br>
-                                    <span id="startDateData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    <span id="startDateData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br></span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fa fa-calendar-times-o text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fa fa-calendar-times-o text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
@@ -1127,36 +1008,27 @@
                         <!-- Date details -->
                         <div class="row">
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fas fa-server text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fas fa-server text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
                                     <span class="text-uppercase text-muted h6">source</span><br>
-                                    <span id="sourceData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    <span id="sourceData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br></span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fas fa-ruler-combined text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fas fa-ruler-combined text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
                                     <span class="text-uppercase text-muted h6">Metric</span><br>
-                                    <span id="metricData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br></span></p>
+                                    <span id="metricData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br></span></p>
                             </div>
                             <div class="col">
-                                <p class="text-center"><span class="fa-stack"><i
-                                            class="fa fa-chart-line text-primary fa-stack-2x"
-                                            style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
+                                <p class="text-center"><span class="fa-stack"><i class="fa fa-chart-line text-primary fa-stack-2x" style="font-size: 34px;width: 49px;margin: -9px;"></i><br>
                                         <br>
                                     </span><br>
 
                                     <span class="text-uppercase text-muted h6">Metric value</span><br>
-                                    <span id="metricValueData" class="p-0"
-                                        style="color: rgb(42,77,112);"><br><br><br><br>
+                                    <span id="metricValueData" class="p-0" style="color: rgb(42,77,112);"><br><br><br><br>
                                     </span>
                                 </p>
                             </div>
@@ -1165,7 +1037,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-dismiss="modal" style="width: 230px;">Delete Schedule</button>
+                <button type="button" id="btnDeleteSchedule" class="btn btn-danger" data-dismiss="modal" style="width: 230px;">Delete Schedule</button>
                 <button type="button" class="btn btn-dark" data-dismiss="modal" style="width: 230px;">Close</button>
             </div>
         </div>
@@ -1175,4 +1047,6 @@
 
 
 
+</div>
+</body>
 </html>

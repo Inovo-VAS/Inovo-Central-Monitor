@@ -14,6 +14,7 @@ var receiveHostIDListReq = getXmlHttpRequestObject();
 var receiveAgentListReq = getXmlHttpRequestObject();
 var receiveSourceFilterReq = getXmlHttpRequestObject();
 var receiveServiceListReq = getXmlHttpRequestObject();
+
 // ------------------------------------------------------------------------------------------------------
 // USER MANAGEMENT
 // ------------------------------------------------------------------------------------------------------
@@ -41,6 +42,11 @@ createHMUserlogReq = getXmlHttpRequestObject();
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 var createUserReq = getXmlHttpRequestObject();
+
+//---------------------------------------------------------------------------------------------------
+
+var deleteScheduleReq = getXmlHttpRequestObject();
+var createDeleteScheduleLogReq = getXmlHttpRequestObject();
 
 
 var sameHost = "";
@@ -466,65 +472,65 @@ function getHostList() {
 
     if (siteId != undefined && siteId != "undefined") {
 
-        if(siteSelected !=  siteId ){
-        
-            siteSelected =  siteId
+        if (siteSelected != siteId) {
 
-    
-         document.getElementById("selectHostDiv").hidden = false;
-
-         document.getElementById("selectHost").disabled = false;
-         var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
-
-         receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
-         receiveHostListReq.onreadystatechange = openHostList;
-         receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-         receiveHostListReq.send("action=runopenquery&query=" + query);
-
-        // var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
-         // var hostIDReset = "<option selected=\"\" value=\"undefined\">Choose Host ID...</option>";
-         var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
-         var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
-         var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+            siteSelected = siteId
 
 
-         // document.getElementById("selectScheduleDisplay");
-         //document.getElementById("selectHost").innerHTML = hostReset;
-         document.getElementById("selectSource").innerHTML = sourceReset;
-         // document.getElementById("selectHostID").innerHTML = hostIDReset;
-         document.getElementById("selectAgent").innerHTML = agentReset;
-         document.getElementById("selectService").innerHTML = serviceReset;
-
-        // document.getElementById("selectHost").disabled = true;
-         document.getElementById("selectSource").disabled = true;
-         // document.getElementById("selectHostID").disabled = true;
-         document.getElementById("selectAgent").disabled = true;
-         document.getElementById("selectService").disabled = true;
-
-         //document.getElementById("selectHostDiv").hidden = true;
-         document.getElementById("selectSourceDiv").hidden = true;
-         document.getElementById("selectAgentDiv").hidden = true;
-         document.getElementById("selectServiceDiv").hidden = true;
-
-        }
-        else if (siteSelected == undefined || siteSelected == "undefined"){
-            document.getElementById("selectHostDiv").hidden = false;                                                                                                                        
+            document.getElementById("selectHostDiv").hidden = false;
 
             document.getElementById("selectHost").disabled = false;
             var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
-   
+
+            receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveHostListReq.onreadystatechange = openHostList;
+            receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveHostListReq.send("action=runopenquery&query=" + query);
+
+            // var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
+            // var hostIDReset = "<option selected=\"\" value=\"undefined\">Choose Host ID...</option>";
+            var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
+            var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
+            var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+
+
+            // document.getElementById("selectScheduleDisplay");
+            //document.getElementById("selectHost").innerHTML = hostReset;
+            document.getElementById("selectSource").innerHTML = sourceReset;
+            // document.getElementById("selectHostID").innerHTML = hostIDReset;
+            document.getElementById("selectAgent").innerHTML = agentReset;
+            document.getElementById("selectService").innerHTML = serviceReset;
+
+            // document.getElementById("selectHost").disabled = true;
+            document.getElementById("selectSource").disabled = true;
+            // document.getElementById("selectHostID").disabled = true;
+            document.getElementById("selectAgent").disabled = true;
+            document.getElementById("selectService").disabled = true;
+
+            //document.getElementById("selectHostDiv").hidden = true;
+            document.getElementById("selectSourceDiv").hidden = true;
+            document.getElementById("selectAgentDiv").hidden = true;
+            document.getElementById("selectServiceDiv").hidden = true;
+
+        }
+        else if (siteSelected == undefined || siteSelected == "undefined") {
+            document.getElementById("selectHostDiv").hidden = false;
+
+            document.getElementById("selectHost").disabled = false;
+            var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
+
             receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
             receiveHostListReq.onreadystatechange = openHostList;
             receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             receiveHostListReq.send("action=runopenquery&query=" + query);
 
         }
-        else{
+        else {
             document.getElementById("selectHostDiv").hidden = false;
 
             document.getElementById("selectHost").disabled = false;
             var query = "SELECT DISTINCT InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled FROM InovoMonitor.tblHosts INNER JOIN InovoMonitor.tblAgent ON InovoMonitor.tblHosts.agentid = InovoMonitor.tblAgent.id INNER JOIN InovoMonitor.tblSites ON InovoMonitor.tblSites.id = InovoMonitor.tblHosts.siteid where InovoMonitor.tblHosts.siteid = '" + siteId + "'  AND InovoMonitor.tblHosts.enabled = 1 group by InovoMonitor.tblHosts.hostname, InovoMonitor.tblHosts.enabled;";
-   
+
             receiveHostListReq.open("POST", serverURL + "/MonitorData", true);
             receiveHostListReq.onreadystatechange = openHostList;
             receiveHostListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1389,7 +1395,7 @@ function editScheduleTemplate() {
                         querySchArr.push(enddatetime);
                     } //end time new, end date same
                     else if ((newScheduleEndDate != editScheduleEndDate) && (newScheduleEndTime != editScheduleEndTime)) {
-                        var combo = "'"+editScheduleEndDate + " " + newScheduleEndTime+"'";
+                        var combo = "'" + editScheduleEndDate + " " + newScheduleEndTime + "'";
                         var enddatetime = "enddatetime = '" + combo + "'";
                         querySchArr.push(enddatetime);
                     }
@@ -1654,28 +1660,28 @@ function getAgentList() {
     var hostName = document.getElementById("selectHost").value;
     if (hostName != "allHosts") {
 
-        if(sameHost == hostName){
-            
-        document.getElementById("selectAgentDiv").hidden = false;
-        document.getElementById("AllHostWarning").hidden = true;
+        if (sameHost == hostName) {
 
-        document.getElementById("selectAgent").disabled = false;
-
-        var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
-
-        receiveAgentListReq.open("POST", serverURL + "/MonitorData", true);
-        receiveAgentListReq.onreadystatechange = openAgentList;
-        receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        receiveAgentListReq.send("action=runopenquery&query=" + query);
-        }
-        else if(sameHost == "") {
             document.getElementById("selectAgentDiv").hidden = false;
             document.getElementById("AllHostWarning").hidden = true;
-    
+
             document.getElementById("selectAgent").disabled = false;
-    
+
             var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
-    
+
+            receiveAgentListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveAgentListReq.onreadystatechange = openAgentList;
+            receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveAgentListReq.send("action=runopenquery&query=" + query);
+        }
+        else if (sameHost == "") {
+            document.getElementById("selectAgentDiv").hidden = false;
+            document.getElementById("AllHostWarning").hidden = true;
+
+            document.getElementById("selectAgent").disabled = false;
+
+            var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
+
             receiveAgentListReq.open("POST", serverURL + "/MonitorData", true);
             receiveAgentListReq.onreadystatechange = openAgentList;
             receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1686,27 +1692,27 @@ function getAgentList() {
             var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
             var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
             var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
-    
-    
+
+
             // document.getElementById("selectScheduleDisplay");
             // document.getElementById("selectHost").innerHTML = hostReset;
             document.getElementById("selectSource").innerHTML = sourceReset;
             // document.getElementById("selectHostID").innerHTML = hostIDReset;
             document.getElementById("selectAgent").innerHTML = agentReset;
             document.getElementById("selectService").innerHTML = serviceReset;
-    
+
             // document.getElementById("selectHost").disabled = true;
             document.getElementById("selectSource").disabled = true;
             // document.getElementById("selectHostID").disabled = true;
             document.getElementById("selectAgent").disabled = true;
             document.getElementById("selectService").disabled = true;
-    
+
             // document.getElementById("selectHostDiv").hidden = true;
             document.getElementById("selectSourceDiv").hidden = true;
             document.getElementById("selectAgentDiv").hidden = true;
             document.getElementById("selectServiceDiv").hidden = true;
 
-        }   
+        }
 
     }
     else {
@@ -2333,6 +2339,8 @@ function showSchedulesDetails() {
             document.getElementById("metricData").innerHTML = metricVAR;
             document.getElementById("metricValueData").innerHTML = metricValueVAR;
 
+            document.getElementById("btnDeleteSchedule").setAttribute("onclick", "deleteSchedule(" + idVar + ")")
+
 
 
         }
@@ -2415,10 +2423,13 @@ function showCurrentHostMaintenance() {
                         + "</a>"
                         + "</td></tr>";
 
+
                     siteTxtData += filSoData;
                 }
+
             }
             document.getElementById("hostMaintenanceTable").innerHTML = siteTxtData;
+
 
         }
 
@@ -2475,6 +2486,7 @@ function showActiveSchedules() {
 
     }
 }
+
 function showScheduleSelected() {
     var scheduleTableDiv = document.getElementById("schedulesTableDiv");
 
@@ -2555,7 +2567,152 @@ function showScheduleSelected() {
 //             }
 //         }
 //     }
-// }
+// }v
+
+var deleteQueryLog = ""
+
+function deleteSchedule(scheduleID) {
+    var deleteQuery;
+
+    deleteQuery = "DELETE "
+        + "FROM InovoMonitor.tblHostMaintenance "
+        + "WHERE InovoMonitor.tblHostMaintenance.id = " + scheduleID + ";";
+
+    deleteQueryLog = "Host Maintenance ID: " + scheduleID;
+
+    deleteScheduleReq.open("POST", serverURL + "/MonitorData", true);
+    //Set the function that will be called when the XmlHttpRequest objects state changes.		
+    deleteScheduleReq.onreadystatechange = logDeleteSchedule;
+    deleteScheduleReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    deleteScheduleReq.send("action=runopenquery&query=" + deleteQuery);
+}
+
+function logDeleteSchedule() {
+    if (deleteScheduleReq.readyState == 4) {
+
+        if (Object.entries(JSON.parse(showErrorMain(deleteScheduleReq.responseText, "Error Found")).length != 0)) {
+
+            var dbData = JSON.parse(showErrorMain(userManagementProfileReq.responseText, "Error Found"));
+            var userProfileData = JSON.parse(showErrorMain(userProfilereq.responseText, "Error Found"));
+
+            if ((Object.entries(dbData).length != 0) && (Object.entries(userProfileData).length != 0)) {
+                var userDetails = dbData['queryresult'];
+                var userProfile = userProfileData['UserInfo'];
+                currentUser = userProfile['userLogin']
+                for (var iAlarm = 0; iAlarm < userDetails.length; iAlarm++) {
+
+                    var rowData = userDetails[iAlarm];
+                    if (currentUser == rowData['userlogin']) {
+                        userProfileID = rowData['id'];
+                    }
+                }
+
+                // // --------------------------------------------------------------------------------------------------------------------------------------------------
+                // //  UPDATE USER LOG
+                // // --------------------------------------------------------------------------------------------------------------------------------------------------    
+                var updateReason = deleteQueryLog + " is deleted";
+                // var query = "SELECT * FROM InovoMonitor.tblAlarms;"
+
+                dateNow = new Date();
+                dateNow = dateNow.getFullYear() + '-' +
+                    ('00' + (dateNow.getMonth() + 1)).slice(-2) + '-' +
+                    ('00' + dateNow.getDate()).slice(-2) + ' ' +
+                    ('00' + dateNow.getHours()).slice(-2) + ':' +
+                    ('00' + dateNow.getMinutes()).slice(-2) + ':' +
+                    ('00' + dateNow.getSeconds()).slice(-2);
+
+                var insertLogquery = "INSERT INTO InovoMonitor.tblUserLog (userid, reason, datecreated, createdby)  VALUES ('" + userProfileID + "','" + String(updateReason) + "', '" + dateNow + "','" + currentUser + "');";
+
+
+
+                createDeleteScheduleLogReq.open("POST", serverURL + "/MonitorData", true);
+                createDeleteScheduleLogReq.onreadystatechange = completeDeleteSchedule;
+                createDeleteScheduleLogReq.onreadystatechange = completeHostMaintain;
+                createDeleteScheduleLogReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                createDeleteScheduleLogReq.send("action=runopenquery&query=" + insertLogquery);
+            }
+            else {
+
+                //set time 
+                var toastDelayTime = 10000;
+                // set title
+                var toastTitle = "HOST MAINTENANCE DELETION INCOMPLETE!";
+                //Set Message
+                var toastMessage = The;
+                var toastPopup = document.getElementById("mainPageToastAlert");
+                var toastTITLEObj = document.getElementById("toastTitle");
+                var toastMSGObj = document.getElementById("toastMessage");
+
+
+                // run toast 
+                toastPopup.setAttribute("data-delay", toastDelayTime);
+                toastTITLEObj.innerHTML = toastTitle;
+                toastMSGObj.innerHTML = toastMessage;
+                $(function () { $('#mainPageToastAlert').toast('show'); });
+
+            }
+
+
+        } else {
+
+            //set time 
+            var toastDelayTime = 10000;
+            // set title
+            var toastTitle = "HOST MAINTENANCE DELETION INCOMPLETE!";
+            //Set Message
+            var toastMessage = deleteQueryLog + " is not  deleted.";
+            var toastPopup = document.getElementById("mainPageToastAlert");
+            var toastTITLEObj = document.getElementById("toastTitle");
+            var toastMSGObj = document.getElementById("toastMessage");
+
+
+            // run toast 
+            toastPopup.setAttribute("data-delay", toastDelayTime);
+            toastTITLEObj.innerHTML = toastTitle;
+            toastMSGObj.innerHTML = toastMessage;
+            $(function () { $('#mainPageToastAlert').toast('show'); });
+
+        }
+
+    }   
+}
+
+function completeDeleteSchedule() {
+
+    if (createMaintenanceScheduleReq.readyState == 4 && createDeleteScheduleLogReq.readyState == 4) {
+
+        //set variables 
+
+
+        //set time 
+        var toastDelayTime = 10000;
+        // set title
+        var toastTitle = "HOST MAINTENANCE DELETION COMPLETE!";
+        //Set Message
+        var toastMessage = deleteQueryLog;
+        var toastPopup = document.getElementById("mainPageToastAlert");
+        var toastTITLEObj = document.getElementById("toastTitle");
+        var toastMSGObj = document.getElementById("toastMessage");
+
+
+        // run toast 
+        toastPopup.setAttribute("data-delay", toastDelayTime);
+        toastTITLEObj.innerHTML = toastTitle;
+        toastMSGObj.innerHTML = toastMessage;
+        $(function () { $('#mainPageToastAlert').toast('show'); });
+
+        resetHostMaintenanceScheduler();
+
+        loadActiveSchedules();
+        loadCurrentHostMaintenance();
+
+    }
+
+}
+
+
+
 
 function createNewScheduleTemplate() {
     var date = new Date().toISOString().slice(0, 10);
@@ -3339,10 +3496,10 @@ function createHostMaintenanceSchedule() {
             retrieveAllHostsForMaintenance();
         }
         else {
-            if ((scheduleId != undefined &&  scheduleId != "undefined" && scheduleId != null) && (selectedSite != undefined || selectedSite != "undefined" )&& (selectedHost != undefined && selectedHost != "undefined")) {
+            if ((scheduleId != undefined && scheduleId != "undefined" && scheduleId != null) && (selectedSite != undefined || selectedSite != "undefined") && (selectedHost != undefined && selectedHost != "undefined")) {
 
                 //when source and service are not selected
-                if ((selectedSource == undefined || selectedSource == "undefined")  && (selectedService == undefined || selectedService == "undefined")) {
+                if ((selectedSource == undefined || selectedSource == "undefined") && (selectedService == undefined || selectedService == "undefined")) {
 
                     selectedService = "";
                     selectedSource = "";
@@ -3432,7 +3589,7 @@ function createHostMaintenanceSchedule() {
             }
             else if ((scheduleId != undefined && scheduleId != "undefined" && scheduleId != null) && (selectedSite != undefined && selectedSite != "undefined")) {
 
-                if ((selectedSource == undefined || selectedSource == "undefined" )&& (selectedService == undefined && selectedService == "undefined" ) && (selectedHost == undefined || selectedHost == "undefined")) {
+                if ((selectedSource == undefined || selectedSource == "undefined") && (selectedService == undefined && selectedService == "undefined") && (selectedHost == undefined || selectedHost == "undefined")) {
 
                     selectedService = "";
                     selectedSource = "";
