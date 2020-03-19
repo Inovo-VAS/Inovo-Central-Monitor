@@ -2170,10 +2170,10 @@ function enableScheduleSelection() {
 function resetHostMaintenanceScheduler() {
     //     document.getElementById("selectScheduleFrequency").disabled = false;
 
-    var displaySchedule = document.getElementById("selectScheduleDisplay");
+   
     getSiteList();
 
-    displaySchedule.setAttribute("value", "");
+    
     var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
     // var hostIDReset = "<option selected=\"\" value=\"undefined\">Choose Host ID...</option>";
     var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
@@ -2628,7 +2628,6 @@ function logDeleteSchedule() {
 
                 createDeleteScheduleLogReq.open("POST", serverURL + "/MonitorData", true);
                 createDeleteScheduleLogReq.onreadystatechange = completeDeleteSchedule;
-                createDeleteScheduleLogReq.onreadystatechange = completeHostMaintain;
                 createDeleteScheduleLogReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 createDeleteScheduleLogReq.send("action=runopenquery&query=" + insertLogquery);
             }
@@ -2680,7 +2679,7 @@ function logDeleteSchedule() {
 
 function completeDeleteSchedule() {
 
-    if (createMaintenanceScheduleReq.readyState == 4 && createDeleteScheduleLogReq.readyState == 4) {
+    if (createDeleteScheduleLogReq.readyState == 4) {
 
         //set variables 
 
