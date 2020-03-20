@@ -196,21 +196,24 @@ function checkAuth() {
 
 
 function returnProfile() {
-    var userProfile = "", allUserProfiles = "", userErrorData = "";
+
+    var userProfile = "", allUserProfiles = "", userErrorData = "", userErrorMessage = "", userErrorCode = "";
+
     if (userProfilereq.readyState == 4 && userManagementProfileReq.readyState == 4) {
+
         var uProfileMng;
 
         var userProfileData = JSON.parse(showErrorMain(userProfilereq.responseText, "Error Found"));
 
         var userManagementProfileData = JSON.parse(showErrorMain(userManagementProfileReq.responseText, "Error Found"));
+        userProfile = userProfileData['UserInfo'];
 
+        userErrorData = userProfileData['Error'];
+        userErrorCode = userErrorData['ErrorCode'];
+        userErrorMessage = userErrorData['ErrorDescription'];
 
-        if ((Object.entries(userManagementProfileData['queryresult']).length != 0) && (Object.entries(userProfileData['UserInfo']).length != 0)) {
-            userProfile = userProfileData['UserInfo'];
+        if ((Object.entries(userManagementProfileData['queryresult']).length != 0) && (userErrorMessage != "user [] not found or bad password")) {
 
-            userErrorData = userProfileData['Error'];
-            userErrorCode = userErrorData['ErrorCode'];
-            userErrorMessage = userErrorData['ErrorDescription'];
             allUserProfiles = userManagementProfileData['queryresult'];
 
             var uProfile = userProfile;
@@ -247,6 +250,27 @@ function returnProfile() {
                 userN.style.border = "1px solid #ff0000";
                 userN.focus();
             }
+        } else {
+            // var userN = document.getElementById("username-login");
+            // var passW = document.getElementById("password-login");
+
+
+            var userProfileData = JSON.parse(showErrorMain(userProfilereq.responseText, "Error Found"));
+
+            
+            userProfile = userProfileData['UserInfo'];
+
+            userErrorData = userProfileData['Error'];
+            userErrorCode = userErrorData['ErrorCode'];
+            userErrorMessage = userErrorData['ErrorDescription'];
+
+
+            document.getElementById("errorMessage").innerHTML = "ERROR: " + userErrorMessage;
+
+            document.getElementById("login-form").reset();
+            passW.style.border = "1px solid #ff0000";
+            userN.style.border = "1px solid #ff0000";
+            userN.focus();
         }
     }
 
@@ -1688,7 +1712,7 @@ function getAgentList() {
             receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             receiveAgentListReq.send("action=runopenquery&query=" + query);
         }
-        else if ((sameHost != hostName) ) {
+        else if ((sameHost != hostName)) {
 
             sameHost = hostName;
             var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
@@ -1697,7 +1721,7 @@ function getAgentList() {
             document.getElementById("selectAgentDiv").hidden = false;
             document.getElementById("AllHostWarning").hidden = true;
 
-            
+
             var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
 
 
@@ -2192,6 +2216,7 @@ function resetHostMaintenanceScheduler() {
 
 
     getSiteList();
+    var scheduleTableDiv = document.getElementById("schedulesTableDiv")
 
 
     var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
@@ -2213,6 +2238,12 @@ function resetHostMaintenanceScheduler() {
     // document.getElementById("selectHostID").disabled = true;
     document.getElementById("selectAgent").disabled = true;
     document.getElementById("selectService").disabled = true;
+
+    scheduleTableDiv.hidden = true;
+    document.getElementById("selectHostDiv").hidden = true;
+    document.getElementById("selectSourceDiv").hidden = true;
+    document.getElementById("selectAgentDiv").hidden = true;
+    document.getElementById("selectServiceDiv").hidden = true;
 }
 
 function resetMaintenance() {
@@ -3804,7 +3835,7 @@ function logUserHostMaintainDetails() {
 
 
 
-            var scheduleId = document.getAttribute("selectSchedule").value;
+            var scheduleId = document.getElementById("selectSchedule").value;
             var selectedSite = document.getElementById("selectSite").value;
             var selectedHost = document.getElementById("selectAgent").value;
 
@@ -3865,31 +3896,31 @@ function logUserHostMaintainDetails() {
 
         }
     }
-    else {
-        //set variables 
-        var newScheduleName = document.getElementById("selectScheduleDisplay").value;
-        var selectedSite = document.getElementById("selectSite").value;
-        var selectedHost = document.getElementById("selectAgent").value;
+    // else {
+    //     //set variables 
+    //     var newScheduleName = document.getElementById("selectSchedule").value;
+    //     var selectedSite = document.getElementById("selectSite").value;
+    //     var selectedHost = document.getElementById("selectAgent").value;
 
-        //set time 
-        var toastDelayTime = 10000;
-        // set title
-        var toastTitle = "ERROR!HOST MAINTENANCE SCHEDULE CREATION COMPLETE!";
-        //Set Message
-        var toastMessage = "FAILED to set the Schedule:  " + newScheduleName + ", for the Site: " + selectedSite + ", Host: " + selectedHost + ". Please Contact Inovo for assistance. ";
+    //     //set time 
+    //     var toastDelayTime = 10000;
+    //     // set title
+    //     var toastTitle = "ERROR!HOST MAINTENANCE SCHEDULE CREATION COMPLETE!";
+    //     //Set Message
+    //     var toastMessage = "FAILED to set the Schedule:  " + newScheduleName + ", for the Site: " + selectedSite + ", Host: " + selectedHost + ". Please Contact Inovo for assistance. ";
 
-        //set objects
-        var toastPopup = document.getElementById("mainPageToastAlert");
-        var toastTITLEObj = document.getElementById("toastTitle");
-        var toastMSGObj = document.getElementById("toastMessage");
+    //     //set objects
+    //     var toastPopup = document.getElementById("mainPageToastAlert");
+    //     var toastTITLEObj = document.getElementById("toastTitle");
+    //     var toastMSGObj = document.getElementById("toastMessage");
 
 
-        // run toast 
-        toastPopup.setAttribute("data-delay", toastDelayTime);
-        toastTITLEObj.innerHTML = toastTitle;
-        toastMSGObj.innerHTML = toastMessage;
-        $(function () { $('#mainPageToastAlert').toast('show'); });
-    }
+    //     // run toast 
+    //     toastPopup.setAttribute("data-delay", toastDelayTime);
+    //     toastTITLEObj.innerHTML = toastTitle;
+    //     toastMSGObj.innerHTML = toastMessage;
+    //     $(function () { $('#mainPageToastAlert').toast('show'); });
+    // }
 
 
 }
@@ -3899,7 +3930,7 @@ function completeHostMaintain() {
     if (createMaintenanceScheduleReq.readyState == 4 && createHMUserlogReq.readyState == 4) {
 
         //set variables 
-        var newScheduleName = document.getElementById("selectScheduleDisplay").value;
+        var newScheduleName = document.getElementById("selectSchedule").value;
         var selectedSite = document.getElementById("selectSite").value;
         var selectedHost = document.getElementById("selectAgent").value;
 
