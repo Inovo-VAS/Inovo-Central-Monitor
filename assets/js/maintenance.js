@@ -1675,6 +1675,7 @@ function getAgentList() {
             receiveAgentListReq.send("action=runopenquery&query=" + query);
         }
         else if (sameHost == "") {
+            sameHost = hostName;
             document.getElementById("selectAgentDiv").hidden = false;
             document.getElementById("AllHostWarning").hidden = true;
 
@@ -1687,30 +1688,43 @@ function getAgentList() {
             receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             receiveAgentListReq.send("action=runopenquery&query=" + query);
         }
-        else {
+        else if ((sameHost != hostName) ) {
 
+            sameHost = hostName;
             var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
             var serviceReset = "<option selected=\"\" value=\"undefined\">Choose Service...</option>";
             var sourceReset = "<option selected=\"\" value=\"undefined\">Choose Source...</option>";
+            document.getElementById("selectAgentDiv").hidden = false;
+            document.getElementById("AllHostWarning").hidden = true;
+
+            
+            var query = "SELECT h.id as hostid, h.siteid, h.agentid, h.hostagentversion, h.hostname, h.hostip, h.hostintip, h.enabled, h.autoupdate, h.updated, a.agenttype, a.agentservice, a.agentversion, a.filelocation, a.packagename, a.agentdescription, a.updated FROM InovoMonitor.tblHosts h INNER JOIN InovoMonitor.tblAgent a on h.agentid=a.id WHERE h.hostname='" + hostName + "'  and enabled=1;"
 
 
             // document.getElementById("selectScheduleDisplay");
             // document.getElementById("selectHost").innerHTML = hostReset;
             document.getElementById("selectSource").innerHTML = sourceReset;
             // document.getElementById("selectHostID").innerHTML = hostIDReset;
-            document.getElementById("selectAgent").innerHTML = agentReset;
+            //document.getElementById("selectAgent").innerHTML = agentReset;
             document.getElementById("selectService").innerHTML = serviceReset;
 
             // document.getElementById("selectHost").disabled = true;
             document.getElementById("selectSource").disabled = true;
             // document.getElementById("selectHostID").disabled = true;
-            document.getElementById("selectAgent").disabled = true;
+            // document.getElementById("selectAgent").disabled = true;
             document.getElementById("selectService").disabled = true;
 
             // document.getElementById("selectHostDiv").hidden = true;
             document.getElementById("selectSourceDiv").hidden = true;
-            document.getElementById("selectAgentDiv").hidden = true;
+            // document.getElementById("selectAgentDiv").hidden = true;
             document.getElementById("selectServiceDiv").hidden = true;
+
+
+
+            receiveAgentListReq.open("POST", serverURL + "/MonitorData", true);
+            receiveAgentListReq.onreadystatechange = openAgentList;
+            receiveAgentListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            receiveAgentListReq.send("action=runopenquery&query=" + query);
 
         }
 
@@ -1823,19 +1837,19 @@ function getServiceAndSourceList() {
 
         receiveServiceListReq.open("POST", serverURL + "/MonitorData", true);
 
-        // receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
+        receiveSourceFilterReq.open("POST", serverURL + "/MonitorData", true);
         //Set the function that will be called when the XmlHttpRequest objects state changes.		
-        // receiveSourceFilterReq.onreadystatechange = loadServiceAndSourceList;
-        // receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        receiveSourceFilterReq.onreadystatechange = loadServiceAndSourceList;
+        receiveSourceFilterReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         //Set the function that will be called when the XmlHttpRequest objects state changes.		
         receiveServiceListReq.onreadystatechange = loadServiceAndSourceList;
         receiveServiceListReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         //Make the actual request.		
         // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
-        // var querySource = "SELECT DISTINCT InovoMonitor.tblAlarms.source FROM InovoMonitor.tblAlarms WHERE InovoMonitor.tblAlarms.hostid=" + hostID + ";;";
-        // var querySource = "SELECT * FROM InovoMonitor.tblAlarmSources;";
-        // receiveSourceFilterReq.send("action=runopenquery&query=" + querySource);
+        // var querySource = "SELECT DISTINCT InovoMonitor.tblAlarms.source FROM InovoMonitor.tblAlarms WHERE InovoMonitor.tblAlarms.hostid=" + hostID + ";";
+        var querySource = "SELECT * FROM InovoMonitor.tblAlarmSources;";
+        receiveSourceFilterReq.send("action=runopenquery&query=" + querySource);
 
         //Make the actual request.		
         // var query2 = "SELECT * FROM InovoMonitor.tblAlarms t WHERE currentstatus<>'RESET'";
@@ -1957,18 +1971,18 @@ function loadSourceList() {
 
 function loadServiceAndSourceList() {
 
-    if (receiveServiceListReq.readyState == 4 /*&& receiveSourceFilterReq.readyState == 4*/) {
+    if (receiveServiceListReq.readyState == 4 && receiveSourceFilterReq.readyState == 4) {
 
         var siteSoTxtData = "", filSoData, filSerData;
 
         //Here we should have some JSON data !!
-        // var dbData = JSON.parse(showErrorMain(receiveSourceFilterReq.responseText, "Error Found"));
+        var dbData = JSON.parse(showErrorMain(receiveSourceFilterReq.responseText, "Error Found"));
         var dbServiceData = JSON.parse(showErrorMain(receiveServiceListReq.responseText, "Error Found"));
 
 
-        if (/*(Object.entries(dbData['queryresult']).length != 0) &&*/ (Object.entries(dbServiceData['queryresult']).length != 0)) {
+        if ((Object.entries(dbData['queryresult']).length != 0) && (Object.entries(dbServiceData['queryresult']).length != 0)) {
 
-            //arrayAlarm = dbData['queryresult'];
+            arrayAlarm = dbData['queryresult'];
             var siteSerTxtData = "", filSerData;
             //Here we should have some JSON data !!
             arrayServiceAlarm = dbServiceData['queryresult'];
@@ -1979,24 +1993,27 @@ function loadServiceAndSourceList() {
             siteSerTxtData += filSerData;
 
 
-            // filSoData = "<div id=\"selectSourceList\"><div class=\"input-group mb-3\"><div class=\"input-group-prepend\"><label class=\"input-group-text\" for=\"searchGroupSelect01\">Source Selection</label></div><select class=\"custom-select\"  id=\"selectSearchSource\"><option value=\"undefined\" selected>Choose Source...</option>";
+            filSoData = "<div id=\"selectSourceList\"><div class=\"input-group mb-3\"><div class=\"input-group-prepend\"><label class=\"input-group-text\" for=\"searchGroupSelect01\">Source Selection</label></div><select class=\"custom-select\"  id=\"selectSearchSource\"><option value=\"undefined\" selected>Choose Source...</option>";
 
-            // siteSoTxtData += filSoData;
+            siteSoTxtData += filSoData;
 
-            if (arrayServiceAlarm.length != 0 /*&& arrayAlarm.length != 0*/) {
+            if (arrayServiceAlarm.length != 0 && arrayAlarm.length != 0) {
 
                 // ------------------------------------------------------------------------------
                 // source
                 // ------------------------------------------------------------------------------
 
-                // for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
-                //     var rowData = arrayAlarm[iAlarm];
+                for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
+                    var rowData = arrayAlarm[iAlarm];
+                    if (rowData['sourcename'] == "ServiceStatus") {
 
-                //     filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
+                        filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
 
-                //     siteSoTxtData += filSoData;
-                // }
-                // document.getElementById("selectSource").innerHTML = siteSoTxtData;
+                        siteSoTxtData += filSoData;
+
+                    }
+                }
+                document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
 
 
@@ -2022,17 +2039,20 @@ function loadServiceAndSourceList() {
 
 
             }
-            else if (arrayServiceAlarm.length == 0 /*&& arrayAlarm.length != 0*/) {
+            else if (arrayServiceAlarm.length == 0 && arrayAlarm.length != 0) {
                 // ------------------------------------------------------------------------------
                 // source
                 // ------------------------------------------------------------------------------
 
                 for (var iAlarm = 0; iAlarm < arrayAlarm.length; iAlarm++) {
                     var rowData = arrayAlarm[iAlarm];
+                    if (rowData['sourcename'] == "ServiceStatus") {
 
-                    filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
+                        filSoData = "<option value=\"" + rowData['sourcename'] + "\">" + rowData['sourcename'] + "</option>";
 
-                    siteSoTxtData += filSoData;
+                        siteSoTxtData += filSoData;
+
+                    }
                 }
                 document.getElementById("selectSource").innerHTML = siteSoTxtData;
 
@@ -2170,10 +2190,10 @@ function enableScheduleSelection() {
 function resetHostMaintenanceScheduler() {
     //     document.getElementById("selectScheduleFrequency").disabled = false;
 
-   
+
     getSiteList();
 
-    
+
     var hostReset = "<option selected=\"\" value=\"undefined\">Choose Host...</option>";
     // var hostIDReset = "<option selected=\"\" value=\"undefined\">Choose Host ID...</option>";
     var agentReset = "<option selected=\"\" value=\"undefined\">Choose Agent...</option>";
@@ -2674,7 +2694,7 @@ function logDeleteSchedule() {
 
         }
 
-    }   
+    }
 }
 
 function completeDeleteSchedule() {
